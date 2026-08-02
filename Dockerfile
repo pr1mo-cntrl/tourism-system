@@ -1,11 +1,13 @@
 FROM php:8.2-cli
 
-# Install system requirements and PostgreSQL drivers for Supabase
+# Install system requirements, PostgreSQL drivers, and Laravel required extensions
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+    libicu-dev \
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_pgsql intl zip
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
