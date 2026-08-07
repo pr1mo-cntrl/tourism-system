@@ -18,5 +18,12 @@ class Accommodation extends Model
         'female_employees',
         'year',
         'province',
+        'month',          
+        'ga_domestic',    
+        'ga_foreign',     
+        'gn_domestic',   
+        'gn_foreign',     
+        'rooms_occupied',
+        'number_of_nights',
     ];
 }
