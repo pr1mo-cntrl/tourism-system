@@ -12,7 +12,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Forms\Components\Select; // Add this line near the top of your file with the other imports!
 
 class AccommodationResource extends Resource
 {
