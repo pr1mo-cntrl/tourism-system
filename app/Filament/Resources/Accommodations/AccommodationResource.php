@@ -24,12 +24,6 @@ class AccommodationResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema
-            ->components([
-                TextInput::make('name')
-                    ->label('Name of Establishment')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
 
                 Select::make('name') 
                     ->label('Name of Establishment')
