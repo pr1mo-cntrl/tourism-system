@@ -471,30 +471,30 @@ class AccommodationResource extends Resource
                     ->numeric()
                     ->default(0),
 
-                Forms\Components\Section::make('Monthly Performance Metrics')
+                \Filament\Forms\Components\Section::make('Monthly Performance Metrics')
                 ->schema([
                     // Guest Arrivals (GA)
-                    Forms\Components\Grid::make(2)
+                    \Filament\Forms\Components\Grid::make(2)
                         ->schema([
-                            Forms\Components\TextInput::make('ga_domestic')
+                            TextInput::make('ga_domestic')
                                 ->label('Guest Arrival (GA) - Domestic')
                                 ->numeric()
                                 ->default(0),
-                            Forms\Components\TextInput::make('ga_foreign')
+                            TextInput::make('ga_foreign')
                                 ->label('Guest Arrival (GA) - Foreign')
                                 ->numeric()
                                 ->default(0),
                         ]),
 
                     // Guest Nights (GN)
-                    Forms\Components\Grid::make(2)
+                    \Filament\Forms\Components\Grid::make(2)
                         ->schema([
-                            Forms\Components\TextInput::make('gn_domestic')
+                            TextInput::make('gn_domestic')
                                 ->label('Guest Night (GN) - Domestic')
                                 ->helperText('Formula: Domestic GA x No. of Nights')
                                 ->numeric()
                                 ->default(0),
-                            Forms\Components\TextInput::make('gn_foreign')
+                            TextInput::make('gn_foreign')
                                 ->label('Guest Night (GN) - Foreign')
                                 ->helperText('Formula: Foreign GA x No. of Nights')
                                 ->numeric()
@@ -502,7 +502,7 @@ class AccommodationResource extends Resource
                         ]),
 
                     // Rooms Occupied
-                    Forms\Components\TextInput::make('rooms_occupied')
+                    TextInput::make('rooms_occupied')
                         ->label('No. of Rooms Occupied')
                         ->numeric()
                         ->default(0)
