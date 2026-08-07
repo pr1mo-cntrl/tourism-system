@@ -470,55 +470,58 @@ class AccommodationResource extends Resource
                     ->label('Female Employees')
                     ->numeric()
                     ->default(0),
+                    
+                //STEP 2: GUEST ARRIVALS & DEMOGRAPHICS
+                \Filament\Forms\Components\Wizard\Step::make('Guest Demographics & Metrics')
+                        ->schema([
+                            TextInput::make('ga_ph_province')
+                                ->label('Guest Arrival (GA) - Philippine Residents (What Province)')
+                                ->placeholder('e.g., Benguet, Cebu')
+                                ->maxLength(255),
 
-                // Guest Arrivals (GA) Breakdown
-                TextInput::make('ga_ph_province')
-                    ->label('Guest Arrival (GA) - Philippine Residents (What Province)')
-                    ->placeholder('e.g., Benguet, Cebu')
-                    ->maxLength(255),
+                            TextInput::make('ga_non_fil_country')
+                                ->label('Guest Arrival (GA) - Non-Filipino Residents (What Country)')
+                                ->placeholder('e.g., South Korea, Japan')
+                                ->maxLength(255),
 
-                TextInput::make('ga_non_fil_country')
-                    ->label('Guest Arrival (GA) - Non-Filipino Residents (What Country)')
-                    ->placeholder('e.g., South Korea, Japan')
-                    ->maxLength(255),
+                            TextInput::make('ga_unspecified')
+                                ->label('Guest Arrival (GA) - Unspecified Resident')
+                                ->numeric()
+                                ->default(0),
 
-                TextInput::make('ga_unspecified')
-                    ->label('Guest Arrival (GA) - Unspecified Resident')
-                    ->numeric()
-                    ->default(0),
+                            TextInput::make('ga_overseas_filipinos')
+                                ->label('Guest Arrival (GA) - Overseas Filipinos')
+                                ->helperText('Filipinos born or raised in another country')
+                                ->numeric()
+                                ->default(0),
 
-                TextInput::make('ga_overseas_filipinos')
-                    ->label('Guest Arrival (GA) - Overseas Filipinos')
-                    ->helperText('Filipinos born or raised in another country')
-                    ->numeric()
-                    ->default(0),
+                            TextInput::make('gn_ph_province')
+                                ->label('Guest Night (GN) - Philippine Residents (Province)')
+                                ->placeholder('GA x No. of Nights')
+                                ->maxLength(255),
 
-                // Guest Nights (GN) Breakdown
-                TextInput::make('gn_ph_province')
-                    ->label('Guest Night (GN) - Philippine Residents (Province)')
-                    ->placeholder('GA x No. of Nights')
-                    ->maxLength(255),
+                            TextInput::make('gn_non_fil_country')
+                                ->label('Guest Night (GN) - Non-Filipino Residents (Country)')
+                                ->placeholder('GA x No. of Nights')
+                                ->maxLength(255),
 
-                TextInput::make('gn_non_fil_country')
-                    ->label('Guest Night (GN) - Non-Filipino Residents (Country)')
-                    ->placeholder('GA x No. of Nights')
-                    ->maxLength(255),
+                            TextInput::make('gn_unspecified')
+                                ->label('Guest Night (GN) - Unspecified Resident')
+                                ->numeric()
+                                ->default(0),
 
-                TextInput::make('gn_unspecified')
-                    ->label('Guest Night (GN) - Unspecified Resident')
-                    ->numeric()
-                    ->default(0),
+                            TextInput::make('gn_overseas_filipinos')
+                                ->label('Guest Night (GN) - Overseas Filipinos')
+                                ->numeric()
+                                ->default(0),
 
-                TextInput::make('gn_overseas_filipinos')
-                    ->label('Guest Night (GN) - Overseas Filipinos')
-                    ->numeric()
-                    ->default(0),
+                            TextInput::make('rooms_occupied')
+                                ->label('No. of Rooms Occupied')
+                                ->numeric()
+                                ->default(0),
+                        ]),
 
-                // Rooms Occupied
-                TextInput::make('rooms_occupied')
-                    ->label('No. of Rooms Occupied')
-                    ->numeric()
-                    ->default(0),
+                ])->columnSpanFull() // Makes the wizard span the full width of the page
             ]);
     }
 
