@@ -216,7 +216,7 @@ class AccommodationResource extends Resource
                     ->placeholder('2024'),
 
                     TextInput::make('province')
-                    ->label('Province / HUC/ICC (*Region)')
+                    ->label('Province/HUC/ICC (*Region)')
                     ->default('Benguet')
                     ->required(),
 
