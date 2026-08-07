@@ -297,10 +297,10 @@ class AccommodationResource extends Resource
                     ->label('Total Employees')
                     ->getStateUsing(fn ($record) => $record->male_employees + $record->female_employees),
 
-                    Tables\Columns\TextColumn::make('year')
+                    TextColumn::make('year')
                         ->sortable(),
 
-                    Tables\Columns\TextColumn::make('province')
+                    TextColumn::make('province')
                         ->label('Province / HUC/ICC')
                         ->searchable(),
             ])
