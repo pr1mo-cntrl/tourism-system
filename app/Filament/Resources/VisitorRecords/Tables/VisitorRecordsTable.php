@@ -12,45 +12,57 @@ class VisitorRecordsTable
     {
         return $table
             ->columns([
-                TextColumn::make('month')->label('Month')->searchable()->sortable(),
-                TextColumn::make('year')->label('Year')->sortable(),
-                TextColumn::make('municipality_name')->label('Municipality')->searchable()->sortable(),
-                TextColumn::make('attraction_name')->label('Tourist Attraction Name')->searchable(),
-                
-                \Filament\Tables\Columns\TextColumn::make('attraction_code')
-                    ->label('Type Code')
+                // 1. Stack the Attraction Name, Municipality, and Code
+                TextColumn::make('attraction_name')
+                    ->label('Tourist Attraction')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->municipality_name . ' | Code: ' . $record->code)
                     ->searchable()
                     ->sortable(),
 
-                // This Municipality
-                TextColumn::make('local_male')->label('This Mun (M)')->numeric(),
-                TextColumn::make('local_female')->label('This Mun (F)')->numeric(),
-                TextColumn::make('local_total')->label('This Mun (Total)')->getStateUsing(fn ($record) => $record->local_male + $record->local_female),
-                
-                // Other Municipality
-                TextColumn::make('other_mun_male')->label('Other Mun (M)')->numeric(),
-                TextColumn::make('other_mun_female')->label('Other Mun (F)')->numeric(),
-                TextColumn::make('other_mun_total')->label('Other Mun (Total)')->getStateUsing(fn ($record) => $record->other_mun_male + $record->other_mun_female),
-                
-                // Other Province
-                TextColumn::make('other_prov_male')->label('Other Prov (M)')->numeric(),
-                TextColumn::make('other_prov_female')->label('Other Prov (F)')->numeric(),
-                TextColumn::make('other_prov_total')->label('Other Prov (Total)')->getStateUsing(fn ($record) => $record->other_prov_male + $record->other_prov_female),
-                
-                // Foreign
-                TextColumn::make('foreign_male')->label('Foreign (M)')->numeric(),
-                TextColumn::make('foreign_female')->label('Foreign (F)')->numeric(),
-                TextColumn::make('foreign_total')->label('Foreign (Total)')->getStateUsing(fn ($record) => $record->foreign_male + $record->foreign_female),
-                
-                // Grand Totals
-                TextColumn::make('grand_total_male')->label('Grand Total (M)')->getStateUsing(fn ($record) => $record->local_male + $record->other_mun_male + $record->other_prov_male + $record->foreign_male),
-                TextColumn::make('grand_total_female')->label('Grand Total (F)')->getStateUsing(fn ($record) => $record->local_female + $record->other_mun_female + $record->other_prov_female + $record->foreign_female),
-                TextColumn::make('grand_total_overall')->label('Grand Total (All)')->getStateUsing(fn ($record) => 
-                    ($record->local_male + $record->local_female) + 
-                    ($record->other_mun_male + $record->other_mun_female) + 
-                    ($record->other_prov_male + $record->other_prov_female) + 
-                    ($record->foreign_male + $record->foreign_female)
-                ),
+                // 2. Stack the Month and Year
+                TextColumn::make('month')
+                    ->label('Period')
+                    ->getStateUsing(fn ($record) => $record->month . ' ' . $record->year)
+                    ->sortable(),
+
+                // 3. This Municipality
+                TextColumn::make('local_total')
+                    ->label('This Mun.')
+                    ->getStateUsing(fn ($record) => (int)$record->local_male + (int)$record->local_female)
+                    ->description(fn ($record) => "M: {$record->local_male} | F: {$record->local_female}"),
+
+                // 4. Other Municipality
+                TextColumn::make('other_mun_total')
+                    ->label('Other Mun.')
+                    ->getStateUsing(fn ($record) => (int)$record->other_mun_male + (int)$record->other_mun_female)
+                    ->description(fn ($record) => "M: {$record->other_mun_male} | F: {$record->other_mun_female}"),
+
+                // 5. Other Province
+                TextColumn::make('other_prov_total')
+                    ->label('Other Prov.')
+                    ->getStateUsing(fn ($record) => (int)$record->other_prov_male + (int)$record->other_prov_female)
+                    ->description(fn ($record) => "M: {$record->other_prov_male} | F: {$record->other_prov_female}"),
+
+                // 6. Foreign Country
+                TextColumn::make('foreign_total')
+                    ->label('Foreign')
+                    ->getStateUsing(fn ($record) => (int)$record->foreign_male + (int)$record->foreign_female)
+                    ->description(fn ($record) => "M: {$record->foreign_male} | F: {$record->foreign_female}"),
+
+                // 7. Grand Total Badge (For a quick summary of the whole row)
+                TextColumn::make('grand_total')
+                    ->label('Total Visitors')
+                    ->weight('bold')
+                    ->badge()
+                    ->color('success')
+                    ->getStateUsing(fn ($record) => 
+                        $record->local_male + $record->local_female +
+                        $record->other_mun_male + $record->other_mun_female +
+                        $record->other_prov_male + $record->other_prov_female +
+                        $record->foreign_male + $record->foreign_female +
+                        $record->unspecified_male + $record->unspecified_female
+                    ),
             ])
             // ... inside your configure() method ...
 
