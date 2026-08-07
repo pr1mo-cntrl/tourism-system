@@ -59,80 +59,60 @@
         </div>
 
         <!-- Data Table -->
-        <div class="report-table-wrapper">
-            <table class="report-table">
-                <thead>
-                    <tr>
-                        <th rowspan="2">Code</th>
-                        <th rowspan="2">Tourist Attraction Name</th>
-                        <th colspan="3">This Municipality</th>
-                        <th colspan="3">Other Municipality</th>
-                        <th colspan="3">Other Province</th>
-                        <th colspan="3">Foreign Country Residence</th>
-                        <th colspan="3">Unspecified</th>
-                        <th colspan="3" class="highlight-col">Grand Total</th>
-                    </tr>
-                    <tr>
-                        @for($i = 0; $i < 6; $i++)
-                            <th>Male</th>
-                            <th>Female</th>
-                            <th class="{{ $i == 5 ? 'highlight-col' : '' }}">Total</th>
-                        @endfor
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    @forelse($this->records as $record)
-                        @php
-                            $localTotal = $record->local_male + $record->local_female;
-                            $otherMunTotal = $record->other_mun_male + $record->other_mun_female;
-                            $otherProvTotal = $record->other_prov_male + $record->other_prov_female;
-                            $foreignTotal = $record->foreign_male + $record->foreign_female;
-                            $unspecifiedTotal = $record->unspecified_male + $record->unspecified_female;
-                            
-                            $gMale = $record->local_male + $record->other_mun_male + $record->other_prov_male + $record->foreign_male + $record->unspecified_male;
-                            $gFemale = $record->local_female + $record->other_mun_female + $record->other_prov_female + $record->foreign_female + $record->unspecified_female;
-                            $gTotal = $gMale + $gFemale;
-                            
-                            $codeOnly = explode(' - ', $record->attraction_code)[0];
-                        @endphp
-                        <tr>
-                            <td>{{ $codeOnly }}</td>
-                            <td class="text-left">{{ $record->attraction_name }}</td>
-                            
-                            <td>{{ $record->local_male }}</td>
-                            <td>{{ $record->local_female }}</td>
-                            <td class="highlight-col">{{ $localTotal }}</td>
-                            
-                            <td>{{ $record->other_mun_male }}</td>
-                            <td>{{ $record->other_mun_female }}</td>
-                            <td class="highlight-col">{{ $otherMunTotal }}</td>
-                            
-                            <td>{{ $record->other_prov_male }}</td>
-                            <td>{{ $record->other_prov_female }}</td>
-                            <td class="highlight-col">{{ $otherProvTotal }}</td>
-                            
-                            <td>{{ $record->foreign_male }}</td>
-                            <td>{{ $record->foreign_female }}</td>
-                            <td class="highlight-col">{{ $foreignTotal }}</td>
+        <div class="overflow-x-auto bg-gray-900 border border-gray-800 rounded-lg">
+    <table class="w-full text-left text-sm text-gray-300">
+        <thead class="bg-gray-950 border-b border-gray-800">
+            <tr>
+                <th class="p-4 font-bold text-white">Tourist Attraction</th>
+                <th class="p-4 font-bold text-center text-white">This Municipality</th>
+                <th class="p-4 font-bold text-center text-white">Other Municipality</th>
+                <th class="p-4 font-bold text-center text-white">Other Province</th>
+                <th class="p-4 font-bold text-center text-white">Foreign Country</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-800">
+            @forelse($this->records as $record)
+                <tr class="hover:bg-gray-800/50 transition-colors">
+                    <!-- Column 1: Stacked Name & Code -->
+                    <td class="p-4">
+                        <div class="font-bold text-white text-base">{{ $record->attraction_name }}</div>
+                        <div class="text-xs text-gray-500 mt-1">Code: {{ $record->code }}</div>
+                    </td>
+                    
+                    <!-- Column 2: This Municipality -->
+                    <td class="p-4 text-center">
+                        <div class="text-lg font-bold text-white">{{ $record->local_male + $record->local_female }}</div>
+                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->local_male }} <span class="mx-1">|</span> F: {{ $record->local_female }}</div>
+                    </td>
 
-                            <td>{{ $record->unspecified_male }}</td>
-                            <td>{{ $record->unspecified_female }}</td>
-                            <td class="highlight-col">{{ $unspecifiedTotal }}</td>
-                            
-                            <td class="highlight-col">{{ $gMale }}</td>
-                            <td class="highlight-col">{{ $gFemale }}</td>
-                            <td class="grand-total">{{ $gTotal }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="20" style="padding: 40px; opacity: 0.5;">
-                                No visitor records found for this period and municipality.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-                
+                    <!-- Column 3: Other Municipality -->
+                    <td class="p-4 text-center">
+                        <div class="text-lg font-bold text-white">{{ $record->other_mun_male + $record->other_mun_female }}</div>
+                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->other_mun_male }} <span class="mx-1">|</span> F: {{ $record->other_mun_female }}</div>
+                    </td>
+
+                    <!-- Column 4: Other Province -->
+                    <td class="p-4 text-center">
+                        <div class="text-lg font-bold text-white">{{ $record->other_prov_male + $record->other_prov_female }}</div>
+                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->other_prov_male }} <span class="mx-1">|</span> F: {{ $record->other_prov_female }}</div>
+                    </td>
+
+                    <!-- Column 5: Foreign Country -->
+                    <td class="p-4 text-center">
+                        <div class="text-lg font-bold text-white">{{ $record->foreign_male + $record->foreign_female }}</div>
+                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->foreign_male }} <span class="mx-1">|</span> F: {{ $record->foreign_female }}</div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="p-8 text-center text-gray-500 italic">
+                        No visitor records found for this period and municipality.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
                 <!-- Summary Row -->
                 <tfoot>
                     <tr>
