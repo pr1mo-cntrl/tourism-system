@@ -16,7 +16,7 @@ class VisitorRecordsTable
                 TextColumn::make('attraction_name')
                     ->label('Tourist Attraction')
                     ->weight('bold')
-                    ->description(fn ($record) => $record->municipality_name . ' | Code: ' . $record->code)
+                    ->description(fn ($record) => $record->municipality_name . ' | Code: ' . $record->type_code)
                     ->searchable()
                     ->sortable(),
 

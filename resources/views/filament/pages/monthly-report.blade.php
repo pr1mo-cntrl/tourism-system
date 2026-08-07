@@ -85,7 +85,7 @@
                         <tr>
                             <td class="text-left">
                                 <div style="font-weight: bold; color: white;">{{ $record->attraction_name }}</div>
-                                <div class="stacked-sub">Code: {{ $record->code }}</div>
+                                <div class="stacked-sub">Code: {{ $record->type_code }}</div>
                             </td>
                             
                             <td>
