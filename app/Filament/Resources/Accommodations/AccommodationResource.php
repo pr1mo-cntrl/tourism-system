@@ -471,35 +471,36 @@ class AccommodationResource extends Resource
                     ->numeric()
                     ->default(0),
 
-                            // Guest Arrivals (GA)
-                            TextInput::make('ga_domestic')
-                                ->label('Guest Arrival (GA) - Domestic')
-                                ->numeric()
-                                ->default(0),
-                            TextInput::make('ga_foreign')
-                                ->label('Guest Arrival (GA) - Foreign')
-                                ->numeric()
-                                ->default(0),
-                        ]),
+                // Guest Arrivals (GA)
+                TextInput::make('ga_domestic')
+                    ->label('Guest Arrival (GA) - Domestic')
+                    ->numeric()
+                    ->default(0),
 
-                            // Guest Nights (GN)
-                            TextInput::make('gn_domestic')
-                                ->label('Guest Night (GN) - Domestic')
-                                ->helperText('Formula: Domestic GA x No. of Nights')
-                                ->numeric()
-                                ->default(0),
-                            TextInput::make('gn_foreign')
-                                ->label('Guest Night (GN) - Foreign')
-                                ->helperText('Formula: Foreign GA x No. of Nights')
-                                ->numeric()
-                                ->default(0),
+                TextInput::make('ga_foreign')
+                    ->label('Guest Arrival (GA) - Foreign')
+                    ->numeric()
+                    ->default(0),
 
-                    // Rooms Occupied
-                    TextInput::make('rooms_occupied')
-                        ->label('No. of Rooms Occupied')
-                        ->numeric()
-                        ->default(0)
-                        ->columnSpanFull(),
+                // Guest Nights (GN)
+                TextInput::make('gn_domestic')
+                    ->label('Guest Night (GN) - Domestic')
+                    ->helperText('Formula: Domestic GA x No. of Nights')
+                    ->numeric()
+                    ->default(0),
+
+                TextInput::make('gn_foreign')
+                    ->label('Guest Night (GN) - Foreign')
+                    ->helperText('Formula: Foreign GA x No. of Nights')
+                    ->numeric()
+                    ->default(0),
+
+                // Rooms Occupied
+                TextInput::make('rooms_occupied')
+                    ->label('No. of Rooms Occupied')
+                    ->numeric()
+                    ->default(0),
+            ]);
     }
 
 
