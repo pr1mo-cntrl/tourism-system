@@ -16,5 +16,7 @@ class Accommodation extends Model
         'no_of_rooms',
         'male_employees',
         'female_employees',
+        'year',
+        'province',
     ];
 }

@@ -210,6 +210,16 @@ class AccommodationResource extends Resource
                     ])
                     ->required(),    
 
+                    Forms\Components\TextInput::make('year')
+                    ->label('Year')
+                    ->numeric()
+                    ->placeholder('2024'),
+
+                Forms\Components\TextInput::make('province')
+                    ->label('Province / HUC/ICC (*Region)')
+                    ->default('Benguet')
+                    ->required(),
+
                 Select::make('municipality')
                     ->label('Municipality')
                     ->options([
@@ -286,6 +296,13 @@ class AccommodationResource extends Resource
                 TextColumn::make('total_employees')
                     ->label('Total Employees')
                     ->getStateUsing(fn ($record) => $record->male_employees + $record->female_employees),
+
+                    Tables\Columns\TextColumn::make('year')
+                        ->sortable(),
+
+                    Tables\Columns\TextColumn::make('province')
+                        ->label('Province / HUC/ICC')
+                        ->searchable(),
             ])
             ->filters([
                 SelectFilter::make('municipality')
