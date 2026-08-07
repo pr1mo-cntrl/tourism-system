@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Accommodations\Pages;
 
-use App\Filament\Resources\AccommodationResource;
+use App\Filament\Resources\Accommodations\AccommodationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
