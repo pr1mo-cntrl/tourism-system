@@ -58,7 +58,6 @@ class VisitorRecordsTable
     \Filament\Tables\Filters\SelectFilter::make('municipality_name')
         ->label('Filter by Municipality')
         ->options([
-            'Baguio City' => 'Baguio City',
             'Atok' => 'Atok',
             'Bakun' => 'Bakun',
             'Bokod' => 'Bokod',
