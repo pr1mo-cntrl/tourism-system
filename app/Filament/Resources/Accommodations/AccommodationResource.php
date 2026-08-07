@@ -471,11 +471,7 @@ class AccommodationResource extends Resource
                     ->numeric()
                     ->default(0),
 
-                \Filament\Forms\Components\Section::make('Monthly Performance Metrics')
-                ->schema([
-                    // Guest Arrivals (GA)
-                    \Filament\Forms\Components\Grid::make(2)
-                        ->schema([
+                            // Guest Arrivals (GA)
                             TextInput::make('ga_domestic')
                                 ->label('Guest Arrival (GA) - Domestic')
                                 ->numeric()
@@ -486,9 +482,7 @@ class AccommodationResource extends Resource
                                 ->default(0),
                         ]),
 
-                    // Guest Nights (GN)
-                    \Filament\Forms\Components\Grid::make(2)
-                        ->schema([
+                            // Guest Nights (GN)
                             TextInput::make('gn_domestic')
                                 ->label('Guest Night (GN) - Domestic')
                                 ->helperText('Formula: Domestic GA x No. of Nights')
@@ -499,7 +493,6 @@ class AccommodationResource extends Resource
                                 ->helperText('Formula: Foreign GA x No. of Nights')
                                 ->numeric()
                                 ->default(0),
-                        ]),
 
                     // Rooms Occupied
                     TextInput::make('rooms_occupied')
@@ -507,8 +500,6 @@ class AccommodationResource extends Resource
                         ->numeric()
                         ->default(0)
                         ->columnSpanFull(),
-                ]),
-            ]);
     }
 
 
