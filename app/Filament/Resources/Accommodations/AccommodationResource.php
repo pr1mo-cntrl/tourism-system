@@ -24,7 +24,7 @@ class AccommodationResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema
-
+            ->components([
                 Select::make('name') 
                     ->label('Name of Establishment')
                     ->searchable()
