@@ -407,6 +407,17 @@ class AccommodationResource extends Resource
                     ->minValue(1900)
                     ->maxValue(2100),
 
+                    Select::make('month')
+                    ->label('Month')
+                    ->options([
+                        'JANUARY' => 'January', 'FEBRUARY' => 'February', 'MARCH' => 'March', 
+                        'APRIL' => 'April', 'MAY' => 'May', 'JUNE' => 'June', 
+                        'JULY' => 'July', 'AUGUST' => 'August', 'SEPTEMBER' => 'September', 
+                        'OCTOBER' => 'October', 'NOVEMBER' => 'November', 'DECEMBER' => 'December'
+                    ])
+                    ->searchable()
+                    ->required(),
+
                 TextInput::make('province')
                     ->label('Province/HUC/ICC (*Region)')
                     ->default('Benguet')
@@ -459,42 +470,78 @@ class AccommodationResource extends Resource
                     ->label('Female Employees')
                     ->numeric()
                     ->default(0),
+
+                Forms\Components\Section::make('Monthly Performance Metrics')
+                ->schema([
+                    // Guest Arrivals (GA)
+                    Forms\Components\Grid::make(2)
+                        ->schema([
+                            Forms\Components\TextInput::make('ga_domestic')
+                                ->label('Guest Arrival (GA) - Domestic')
+                                ->numeric()
+                                ->default(0),
+                            Forms\Components\TextInput::make('ga_foreign')
+                                ->label('Guest Arrival (GA) - Foreign')
+                                ->numeric()
+                                ->default(0),
+                        ]),
+
+                    // Guest Nights (GN)
+                    Forms\Components\Grid::make(2)
+                        ->schema([
+                            Forms\Components\TextInput::make('gn_domestic')
+                                ->label('Guest Night (GN) - Domestic')
+                                ->helperText('Formula: Domestic GA x No. of Nights')
+                                ->numeric()
+                                ->default(0),
+                            Forms\Components\TextInput::make('gn_foreign')
+                                ->label('Guest Night (GN) - Foreign')
+                                ->helperText('Formula: Foreign GA x No. of Nights')
+                                ->numeric()
+                                ->default(0),
+                        ]),
+
+                    // Rooms Occupied
+                    Forms\Components\TextInput::make('rooms_occupied')
+                        ->label('No. of Rooms Occupied')
+                        ->numeric()
+                        ->default(0)
+                        ->columnSpanFull(),
+                ]),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Establishment Name')
-                    ->searchable()
-                    ->sortable(),
-                    
-                TextColumn::make('municipality')
-                    ->searchable()
-                    ->sortable()
-                    ->badge(),
-
-                TextColumn::make('type')
-                    ->label('Type')
-                    ->sortable(),
-
-                TextColumn::make('no_of_rooms')
-                    ->label('Rooms')
-                    ->numeric()
-                    ->sortable(),
-
-                TextColumn::make('total_employees')
-                    ->label('Total Employees')
-                    ->getStateUsing(fn ($record) => $record->male_employees + $record->female_employees),
-
-                TextColumn::make('year')
-                    ->sortable(),
-
-                TextColumn::make('province')
-                    ->label('Province / HUC/ICC')
+                    ->label('Accommodation | Municipality | Month')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->municipality . ' | ' . $record->month . ' ' . $record->year)
                     ->searchable(),
+
+                TextColumn::make('employees_rooms')
+                    ->label('Employees | Total Rooms')
+                    ->getStateUsing(fn ($record) => 'Rooms: ' . $record->no_of_rooms)
+                    ->description(fn ($record) => 'M: ' . $record->male_employees . ' | F: ' . $record->female_employees),
+
+                TextColumn::make('ga_stats')
+                    ->label('Guest Arrivals (GA)')
+                    ->getStateUsing(fn ($record) => 'Total: ' . ((int)$record->ga_domestic + (int)$record->ga_foreign))
+                    ->description(fn ($record) => 'Dom: ' . $record->ga_domestic . ' | For: ' . $record->ga_foreign),
+
+                TextColumn::make('gn_stats')
+                    ->label('Guest Nights (GN)')
+                    ->getStateUsing(fn ($record) => 'Total: ' . ((int)$record->gn_domestic + (int)$record->gn_foreign))
+                    ->description(fn ($record) => 'Dom: ' . $record->gn_domestic . ' | For: ' . $record->gn_foreign),
+
+                TextColumn::make('rooms_occupied')
+                    ->label('Rooms Occupied')
+                    ->badge()
+                    ->color('warning')
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('municipality')
@@ -515,7 +562,6 @@ class AccommodationResource extends Resource
                     ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
