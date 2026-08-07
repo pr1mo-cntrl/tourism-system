@@ -471,53 +471,48 @@ class AccommodationResource extends Resource
                     ->numeric()
                     ->default(0),
 
-                // 1. We need a "Number of Nights" input to drive the math formula
-                TextInput::make('number_of_nights')
-                    ->label('Number of Nights Stayed')
-                    ->numeric()
-                    ->default(1)
-                    ->live()
-                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                        $nights = (int) $state;
-                        $set('gn_domestic', (int) $get('ga_domestic') * $nights);
-                        $set('gn_foreign', (int) $get('ga_foreign') * $nights);
-                    }),
+                // Guest Arrivals (GA) Breakdown
+                TextInput::make('ga_ph_province')
+                    ->label('Guest Arrival (GA) - Philippine Residents (What Province)')
+                    ->placeholder('e.g., Benguet, Cebu')
+                    ->maxLength(255),
 
-                // Guest Arrivals (GA) - Domestic
-                TextInput::make('ga_domestic')
-                    ->label('Guest Arrival (GA) - Domestic')
-                    ->numeric()
-                    ->default(0)
-                    ->live()
-                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                        $nights = (int) $get('number_of_nights') ?: 1;
-                        $set('gn_domestic', (int) $state * $nights);
-                    }),
+                TextInput::make('ga_non_fil_country')
+                    ->label('Guest Arrival (GA) - Non-Filipino Residents (What Country)')
+                    ->placeholder('e.g., South Korea, Japan')
+                    ->maxLength(255),
 
-                // Guest Arrivals (GA) - Foreign
-                TextInput::make('ga_foreign')
-                    ->label('Guest Arrival (GA) - Foreign')
+                TextInput::make('ga_unspecified')
+                    ->label('Guest Arrival (GA) - Unspecified Resident')
                     ->numeric()
-                    ->default(0)
-                    ->live()
-                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                        $nights = (int) $get('number_of_nights') ?: 1;
-                        $set('gn_foreign', (int) $state * $nights);
-                    }),
+                    ->default(0),
 
-                // Guest Nights (GN) - Domestic (Auto-calculated)
-                TextInput::make('gn_domestic')
-                    ->label('Guest Night (GN) - Domestic (Auto)')
+                TextInput::make('ga_overseas_filipinos')
+                    ->label('Guest Arrival (GA) - Overseas Filipinos')
+                    ->helperText('Filipinos born or raised in another country')
                     ->numeric()
-                    ->default(0)
-                    ->readOnly(), // Locks it so the user knows it's calculated automatically
+                    ->default(0),
 
-                // Guest Nights (GN) - Foreign (Auto-calculated)
-                TextInput::make('gn_foreign')
-                    ->label('Guest Night (GN) - Foreign (Auto)')
+                // Guest Nights (GN) Breakdown
+                TextInput::make('gn_ph_province')
+                    ->label('Guest Night (GN) - Philippine Residents (Province)')
+                    ->placeholder('GA x No. of Nights')
+                    ->maxLength(255),
+
+                TextInput::make('gn_non_fil_country')
+                    ->label('Guest Night (GN) - Non-Filipino Residents (Country)')
+                    ->placeholder('GA x No. of Nights')
+                    ->maxLength(255),
+
+                TextInput::make('gn_unspecified')
+                    ->label('Guest Night (GN) - Unspecified Resident')
                     ->numeric()
-                    ->default(0)
-                    ->readOnly(), // Locks it so the user knows it's calculated automatically
+                    ->default(0),
+
+                TextInput::make('gn_overseas_filipinos')
+                    ->label('Guest Night (GN) - Overseas Filipinos')
+                    ->numeric()
+                    ->default(0),
 
                 // Rooms Occupied
                 TextInput::make('rooms_occupied')
