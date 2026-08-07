@@ -213,7 +213,6 @@ class AccommodationResource extends Resource
                 Select::make('municipality')
                     ->label('Municipality')
                     ->options([
-                        'Baguio City' => 'Baguio City',
                         'Atok' => 'Atok',
                         'Bakun' => 'Bakun',
                         'Bokod' => 'Bokod',
