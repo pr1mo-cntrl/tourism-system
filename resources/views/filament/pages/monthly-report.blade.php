@@ -11,13 +11,6 @@
         .report-header { text-align: center; margin-bottom: 30px; }
         .report-header h2 { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
         .report-header h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
-        .report-table-wrapper { overflow-x: auto; }
-        .report-table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
-        .report-table th, .report-table td { border: 1px solid #3f3f46; padding: 12px; text-align: center; }
-        .report-table th { background: rgba(113, 113, 122, 0.15); font-weight: bold; }
-        .report-table td.text-left { text-align: left; font-weight: bold; }
-        .highlight-col { background: rgba(113, 113, 122, 0.05); font-weight: bold; }
-        .grand-total { background: rgba(234, 179, 8, 0.15) !important; color: #eab308; font-weight: bold; font-size: 14px;}
         
         .charts-wrapper { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 40px; }
         .chart-box { flex: 1; min-width: 300px; background-color: #18181b; border: 1px solid #3f3f46; border-radius: 8px; padding: 20px; height: 350px; position: relative; }
@@ -58,96 +51,94 @@
             <h3>Municipality: {{ $selectedMunicipality }}</h3>
         </div>
 
-        <!-- Data Table -->
+        <!-- Sleek Data Table -->
         <div class="overflow-x-auto bg-gray-900 border border-gray-800 rounded-lg">
-    <table class="w-full text-left text-sm text-gray-300">
-        <thead class="bg-gray-950 border-b border-gray-800">
-            <tr>
-                <th class="p-4 font-bold text-white">Tourist Attraction</th>
-                <th class="p-4 font-bold text-center text-white">This Municipality</th>
-                <th class="p-4 font-bold text-center text-white">Other Municipality</th>
-                <th class="p-4 font-bold text-center text-white">Other Province</th>
-                <th class="p-4 font-bold text-center text-white">Foreign Country</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-800">
-            @forelse($this->records as $record)
-                <tr class="hover:bg-gray-800/50 transition-colors">
-                    <!-- Column 1: Stacked Name & Code -->
-                    <td class="p-4">
-                        <div class="font-bold text-white text-base">{{ $record->attraction_name }}</div>
-                        <div class="text-xs text-gray-500 mt-1">Code: {{ $record->code }}</div>
-                    </td>
-                    
-                    <!-- Column 2: This Municipality -->
-                    <td class="p-4 text-center">
-                        <div class="text-lg font-bold text-white">{{ $record->local_male + $record->local_female }}</div>
-                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->local_male }} <span class="mx-1">|</span> F: {{ $record->local_female }}</div>
-                    </td>
-
-                    <!-- Column 3: Other Municipality -->
-                    <td class="p-4 text-center">
-                        <div class="text-lg font-bold text-white">{{ $record->other_mun_male + $record->other_mun_female }}</div>
-                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->other_mun_male }} <span class="mx-1">|</span> F: {{ $record->other_mun_female }}</div>
-                    </td>
-
-                    <!-- Column 4: Other Province -->
-                    <td class="p-4 text-center">
-                        <div class="text-lg font-bold text-white">{{ $record->other_prov_male + $record->other_prov_female }}</div>
-                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->other_prov_male }} <span class="mx-1">|</span> F: {{ $record->other_prov_female }}</div>
-                    </td>
-
-                    <!-- Column 5: Foreign Country -->
-                    <td class="p-4 text-center">
-                        <div class="text-lg font-bold text-white">{{ $record->foreign_male + $record->foreign_female }}</div>
-                        <div class="text-xs text-gray-500 mt-1">M: {{ $record->foreign_male }} <span class="mx-1">|</span> F: {{ $record->foreign_female }}</div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="p-8 text-center text-gray-500 italic">
-                        No visitor records found for this period and municipality.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-                <!-- Summary Row -->
-                <tfoot>
+            <table class="w-full text-left text-sm text-gray-300">
+                <thead class="bg-gray-950 border-b border-gray-800">
                     <tr>
-                        <th colspan="2" class="text-left">Total of this Month</th>
-                        
-                        <th>{{ $this->records->sum('local_male') }}</th>
-                        <th>{{ $this->records->sum('local_female') }}</th>
-                        <th class="highlight-col">{{ $this->records->sum('local_male') + $this->records->sum('local_female') }}</th>
-                        
-                        <th>{{ $this->records->sum('other_mun_male') }}</th>
-                        <th>{{ $this->records->sum('other_mun_female') }}</th>
-                        <th class="highlight-col">{{ $this->records->sum('other_mun_male') + $this->records->sum('other_mun_female') }}</th>
-                        
-                        <th>{{ $this->records->sum('other_prov_male') }}</th>
-                        <th>{{ $this->records->sum('other_prov_female') }}</th>
-                        <th class="highlight-col">{{ $this->records->sum('other_prov_male') + $this->records->sum('other_prov_female') }}</th>
-                        
-                        <th>{{ $this->records->sum('foreign_male') }}</th>
-                        <th>{{ $this->records->sum('foreign_female') }}</th>
-                        <th class="highlight-col">{{ $this->records->sum('foreign_male') + $this->records->sum('foreign_female') }}</th>
+                        <th class="p-4 font-bold text-white">Tourist Attraction</th>
+                        <th class="p-4 font-bold text-center text-white">This Municipality</th>
+                        <th class="p-4 font-bold text-center text-white">Other Municipality</th>
+                        <th class="p-4 font-bold text-center text-white">Other Province</th>
+                        <th class="p-4 font-bold text-center text-white">Foreign Country</th>
+                        <th class="p-4 font-bold text-center text-yellow-500">Unspecified</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800">
+                    @forelse($this->records as $record)
+                        <tr class="hover:bg-gray-800/50 transition-colors">
+                            <!-- Column 1: Stacked Name & Code -->
+                            <td class="p-4">
+                                <div class="font-bold text-white text-base">{{ $record->attraction_name }}</div>
+                                <div class="text-xs text-gray-500 mt-1">Code: {{ $record->code }}</div>
+                            </td>
+                            
+                            <!-- Column 2: This Municipality -->
+                            <td class="p-4 text-center">
+                                <div class="text-lg font-bold text-white">{{ $record->local_male + $record->local_female }}</div>
+                                <div class="text-xs text-gray-500 mt-1">M: {{ $record->local_male }} <span class="mx-1">|</span> F: {{ $record->local_female }}</div>
+                            </td>
 
-                        <th>{{ $this->records->sum('unspecified_male') }}</th>
-                        <th>{{ $this->records->sum('unspecified_female') }}</th>
-                        <th class="highlight-col">{{ $this->records->sum('unspecified_male') + $this->records->sum('unspecified_female') }}</th>
+                            <!-- Column 3: Other Municipality -->
+                            <td class="p-4 text-center">
+                                <div class="text-lg font-bold text-white">{{ $record->other_mun_male + $record->other_mun_female }}</div>
+                                <div class="text-xs text-gray-500 mt-1">M: {{ $record->other_mun_male }} <span class="mx-1">|</span> F: {{ $record->other_mun_female }}</div>
+                            </td>
+
+                            <!-- Column 4: Other Province -->
+                            <td class="p-4 text-center">
+                                <div class="text-lg font-bold text-white">{{ $record->other_prov_male + $record->other_prov_female }}</div>
+                                <div class="text-xs text-gray-500 mt-1">M: {{ $record->other_prov_male }} <span class="mx-1">|</span> F: {{ $record->other_prov_female }}</div>
+                            </td>
+
+                            <!-- Column 5: Foreign Country -->
+                            <td class="p-4 text-center">
+                                <div class="text-lg font-bold text-white">{{ $record->foreign_male + $record->foreign_female }}</div>
+                                <div class="text-xs text-gray-500 mt-1">M: {{ $record->foreign_male }} <span class="mx-1">|</span> F: {{ $record->foreign_female }}</div>
+                            </td>
+
+                            <!-- Column 6: Unspecified -->
+                            <td class="p-4 text-center">
+                                <div class="text-lg font-bold text-yellow-500">{{ $record->unspecified_male + $record->unspecified_female }}</div>
+                                <div class="text-xs text-gray-500 mt-1">M: {{ $record->unspecified_male }} <span class="mx-1">|</span> F: {{ $record->unspecified_female }}</div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="p-8 text-center text-gray-500 italic">
+                                No visitor records found for this period and municipality.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+                <!-- Summary Row Re-styled -->
+                <tfoot class="bg-gray-950 border-t-2 border-gray-700">
+                    <tr>
+                        <th class="p-4 font-bold text-white text-right">TOTAL OF THIS MONTH:</th>
                         
-                        <th class="highlight-col">{{ $this->records->sum('local_male') + $this->records->sum('other_mun_male') + $this->records->sum('other_prov_male') + $this->records->sum('foreign_male') + $this->records->sum('unspecified_male') }}</th>
-                        <th class="highlight-col">{{ $this->records->sum('local_female') + $this->records->sum('other_mun_female') + $this->records->sum('other_prov_female') + $this->records->sum('foreign_female') + $this->records->sum('unspecified_female') }}</th>
-                        <th class="grand-total">
-                            {{ 
-                                ($this->records->sum('local_male') + $this->records->sum('local_female')) + 
-                                ($this->records->sum('other_mun_male') + $this->records->sum('other_mun_female')) + 
-                                ($this->records->sum('other_prov_male') + $this->records->sum('other_prov_female')) + 
-                                ($this->records->sum('foreign_male') + $this->records->sum('foreign_female')) +
-                                ($this->records->sum('unspecified_male') + $this->records->sum('unspecified_female'))
-                            }}
+                        <th class="p-4 text-center">
+                            <div class="text-lg font-bold text-white">{{ $this->records->sum('local_male') + $this->records->sum('local_female') }}</div>
+                            <div class="text-xs text-gray-400 mt-1">M: {{ $this->records->sum('local_male') }} <span class="mx-1">|</span> F: {{ $this->records->sum('local_female') }}</div>
+                        </th>
+                        
+                        <th class="p-4 text-center">
+                            <div class="text-lg font-bold text-white">{{ $this->records->sum('other_mun_male') + $this->records->sum('other_mun_female') }}</div>
+                            <div class="text-xs text-gray-400 mt-1">M: {{ $this->records->sum('other_mun_male') }} <span class="mx-1">|</span> F: {{ $this->records->sum('other_mun_female') }}</div>
+                        </th>
+                        
+                        <th class="p-4 text-center">
+                            <div class="text-lg font-bold text-white">{{ $this->records->sum('other_prov_male') + $this->records->sum('other_prov_female') }}</div>
+                            <div class="text-xs text-gray-400 mt-1">M: {{ $this->records->sum('other_prov_male') }} <span class="mx-1">|</span> F: {{ $this->records->sum('other_prov_female') }}</div>
+                        </th>
+                        
+                        <th class="p-4 text-center">
+                            <div class="text-lg font-bold text-white">{{ $this->records->sum('foreign_male') + $this->records->sum('foreign_female') }}</div>
+                            <div class="text-xs text-gray-400 mt-1">M: {{ $this->records->sum('foreign_male') }} <span class="mx-1">|</span> F: {{ $this->records->sum('foreign_female') }}</div>
+                        </th>
+
+                        <th class="p-4 text-center">
+                            <div class="text-lg font-bold text-yellow-500">{{ $this->records->sum('unspecified_male') + $this->records->sum('unspecified_female') }}</div>
+                            <div class="text-xs text-gray-400 mt-1">M: {{ $this->records->sum('unspecified_male') }} <span class="mx-1">|</span> F: {{ $this->records->sum('unspecified_female') }}</div>
                         </th>
                     </tr>
                 </tfoot>
@@ -210,7 +201,7 @@
                 }
             });
 
-            // Residence Doughnut Chart (Added Unspecified)
+            // Residence Doughnut Chart
             myCharts.res = new Chart(document.getElementById('residenceChart'), {
                 type: 'doughnut',
                 data: {
@@ -227,7 +218,7 @@
                 }
             });
 
-            // Domestic vs Foreign Pie Chart (Added Unspecified)
+            // Domestic vs Foreign Pie Chart
             myCharts.domFor = new Chart(document.getElementById('domesticForeignChart'), {
                 type: 'pie',
                 data: {
