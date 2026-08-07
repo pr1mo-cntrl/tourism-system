@@ -29,7 +29,7 @@ class AccommodationResource extends Resource
                     ->label('Name of Establishment')
                     ->searchable()
                     ->live()
-                    ->afterStateUpdated(function ($state, \Filament\Forms\Set $set) {
+                    ->afterStateUpdated(function ($state, callable $set) {
                         
                         // FIXED: Removed the extra closing bracket here
                         $mapping = [
