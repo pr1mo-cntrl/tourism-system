@@ -210,12 +210,12 @@ class AccommodationResource extends Resource
                     ])
                     ->required(),    
 
-                    Forms\Components\TextInput::make('year')
+                    TextInput::make('year')
                     ->label('Year')
                     ->numeric()
                     ->placeholder('2024'),
 
-                Forms\Components\TextInput::make('province')
+                    TextInput::make('province')
                     ->label('Province / HUC/ICC (*Region)')
                     ->default('Benguet')
                     ->required(),
