@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\AccommodationResource\Pages;
+namespace App\Filament\Resources\Accommodations\Pages;
 
 use App\Filament\Resources\AccommodationResource;
 use Filament\Actions;
@@ -10,7 +10,6 @@ class CreateAccommodation extends CreateRecord
 {
     protected static string $resource = AccommodationResource::class;
 
-    // Add this block to redirect back to the list after saving:
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
