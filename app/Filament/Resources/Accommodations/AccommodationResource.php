@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\HtmlString; // ADDED: Required for our custom visual separators
 
 class AccommodationResource extends Resource
 {
@@ -27,10 +28,17 @@ class AccommodationResource extends Resource
         return $schema
             ->components([
                 
-                // --- PART 1: ESTABLISHMENT INFO ---
-                Placeholder::make('heading_info')
-                    ->label('ESTABLISHMENT PROFILE')
-                    ->content('Basic details, capacity, and staffing.'),
+                // ==========================================
+                // MASSIVE VISUAL DIVIDER: ESTABLISHMENT INFO
+                // ==========================================
+                Placeholder::make('divider_1')
+                    ->label('')
+                    ->content(new HtmlString('
+                        <div style="margin-bottom: 10px; padding: 25px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #3b82f6; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                            <h2 style="font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 5px; margin-top: 0;">📋 PART 1: ESTABLISHMENT PROFILE</h2>
+                            <span style="color: #9ca3af; font-size: 0.95rem;">Basic details, capacity, and staffing information.</span>
+                        </div>
+                    ')),
 
                 Select::make('name') 
                     ->label('Name of Establishment')
@@ -465,10 +473,17 @@ class AccommodationResource extends Resource
                     ->numeric()
                     ->default(0),
 
-                // --- PART 2: GUEST DEMOGRAPHICS & METRICS ---
-                Placeholder::make('heading_metrics')
-                    ->label('GUEST ARRIVALS & NIGHTS (GA / GN)')
-                    ->content('Monthly demographic tracking and occupancy data.'),
+                // ==========================================
+                // MASSIVE VISUAL DIVIDER: GUEST METRICS
+                // ==========================================
+                Placeholder::make('divider_2')
+                    ->label('')
+                    ->content(new HtmlString('
+                        <div style="margin-top: 50px; margin-bottom: 10px; padding: 25px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #10b981; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                            <h2 style="font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 5px; margin-top: 0;">📊 PART 2: GUEST ARRIVALS & NIGHTS</h2>
+                            <span style="color: #9ca3af; font-size: 0.95rem;">Scroll down to input the monthly demographic breakdown and room occupancy.</span>
+                        </div>
+                    ')),
 
                 TextInput::make('ga_ph_province')
                     ->label('GA - Philippine Residents (Province)')
