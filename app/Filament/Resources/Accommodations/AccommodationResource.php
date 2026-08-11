@@ -11,7 +11,6 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Get; // ADDED: Required to read the value of other fields in real-time
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\HtmlString;
@@ -499,7 +498,7 @@ class AccommodationResource extends Resource
                     ->label('What province/s are they from?')
                     ->placeholder('e.g., Benguet, Cebu')
                     ->maxLength(255)
-                    ->visible(fn (Get $get) => (int) $get('ga_ph_count') > 0), // Appears instantly if count is > 0
+                    ->visible(fn ($get) => (int) $get('ga_ph_count') > 0), // Appears instantly if count is > 0
 
                 // 2. Non-Philippine Residents (Conditionally shows country)
                 TextInput::make('ga_non_fil_count')
@@ -512,7 +511,7 @@ class AccommodationResource extends Resource
                     ->label('Which country/countries are they from?')
                     ->placeholder('e.g., South Korea, Japan')
                     ->maxLength(255)
-                    ->visible(fn (Get $get) => (int) $get('ga_non_fil_count') > 0), // Appears instantly if count is > 0
+                    ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0), // Appears instantly if count is > 0
 
                 // 3. Unspecified
                 TextInput::make('ga_unspecified')
