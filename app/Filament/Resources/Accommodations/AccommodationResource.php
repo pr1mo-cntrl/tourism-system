@@ -45,6 +45,7 @@ class AccommodationResource extends Resource
                     ->label('Name of Establishment')
                     ->searchable()
                     ->live()
+                    ->columnSpanFull() // Ensures the name spans the full width
                     ->afterStateUpdated(function ($state, callable $set) {
                         $mapping = [
                             'SUNRISE CABIN TRAVELLERS INN' => 'Atok',
@@ -487,43 +488,49 @@ class AccommodationResource extends Resource
                         </div>
                     ')),
 
-                // 1. Philippine Residents (Conditionally shows province)
+                // 1. Philippine Residents
                 TextInput::make('ga_ph_count')
                     ->label('How many Philippine resident/s?')
                     ->numeric()
                     ->default(0)
-                    ->live(), // Tells Filament to watch this field for changes
+                    ->live()
+                    ->columnSpanFull(),
 
                 TextInput::make('ga_ph_province')
                     ->label('What province/s are they from?')
                     ->placeholder('e.g., Benguet, Cebu')
                     ->maxLength(255)
-                    ->visible(fn ($get) => (int) $get('ga_ph_count') > 0), // Appears instantly if count is > 0
+                    ->visible(fn ($get) => (int) $get('ga_ph_count') > 0)
+                    ->columnSpanFull(),
 
-                // 2. Non-Philippine Residents (Conditionally shows country)
+                // 2. Non-Philippine Residents
                 TextInput::make('ga_non_fil_count')
                     ->label('How many non-Philippine resident/s?')
                     ->numeric()
                     ->default(0)
-                    ->live(), // Tells Filament to watch this field for changes
+                    ->live()
+                    ->columnSpanFull(),
 
                 TextInput::make('ga_non_fil_country')
                     ->label('Which country/countries are they from?')
                     ->placeholder('e.g., South Korea, Japan')
                     ->maxLength(255)
-                    ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0), // Appears instantly if count is > 0
+                    ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0)
+                    ->columnSpanFull(),
 
                 // 3. Unspecified
                 TextInput::make('ga_unspecified')
                     ->label('How many unspecified resident/s?')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->columnSpanFull(),
 
                 // 4. Overseas Filipinos
                 TextInput::make('ga_overseas_filipinos')
                     ->label('How many overseas filipino/s?')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->columnSpanFull(),
 
             ]);
     }
