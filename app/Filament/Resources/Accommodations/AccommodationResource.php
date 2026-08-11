@@ -45,7 +45,7 @@ class AccommodationResource extends Resource
                     ->label('Name of Establishment')
                     ->searchable()
                     ->live()
-                    ->columnSpanFull() // Ensures the name spans the full width
+                    ->columnSpanFull()
                     ->afterStateUpdated(function ($state, callable $set) {
                         $mapping = [
                             'SUNRISE CABIN TRAVELLERS INN' => 'Atok',
@@ -476,7 +476,7 @@ class AccommodationResource extends Resource
                     ->default(0),
 
                 // ==========================================
-                // PART 2: CONDITIONAL GUEST ARRIVALS
+                // PART 2: CONDITIONAL GUEST ARRIVALS & NIGHTS
                 // ==========================================
                 Placeholder::make('divider_2')
                     ->hiddenLabel() 
@@ -484,7 +484,7 @@ class AccommodationResource extends Resource
                     ->content(new HtmlString('
                         <div style="margin-top: 50px; margin-bottom: 10px; padding: 25px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #10b981; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                             <h2 style="font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 5px; margin-top: 0;">📊 PART 2: GUEST ARRIVALS</h2>
-                            <span style="color: #9ca3af; font-size: 0.95rem;">Please provide the exact resident count and locations below.</span>
+                            <span style="color: #9ca3af; font-size: 0.95rem;">Please provide the exact resident count, locations, and nights below.</span>
                         </div>
                     ')),
 
@@ -503,6 +503,13 @@ class AccommodationResource extends Resource
                     ->visible(fn ($get) => (int) $get('ga_ph_count') > 0)
                     ->columnSpanFull(),
 
+                TextInput::make('gn_ph_count')
+                    ->label('How many nights did they stay? (Philippine Residents)')
+                    ->numeric()
+                    ->default(0)
+                    ->visible(fn ($get) => (int) $get('ga_ph_count') > 0)
+                    ->columnSpanFull(),
+
                 // 2. Non-Philippine Residents
                 TextInput::make('ga_non_fil_count')
                     ->label('How many non-Philippine resident/s?')
@@ -518,16 +525,64 @@ class AccommodationResource extends Resource
                     ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0)
                     ->columnSpanFull(),
 
+                TextInput::make('gn_non_fil_count')
+                    ->label('How many nights did they stay? (Non-Philippine Residents)')
+                    ->numeric()
+                    ->default(0)
+                    ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0)
+                    ->columnSpanFull(),
+
                 // 3. Unspecified
                 TextInput::make('ga_unspecified')
                     ->label('How many unspecified resident/s?')
                     ->numeric()
                     ->default(0)
+                    ->live()
+                    ->columnSpanFull(),
+
+                TextInput::make('gn_unspecified')
+                    ->label('How many nights did they stay? (Unspecified Residents)')
+                    ->numeric()
+                    ->default(0)
+                    ->visible(fn ($get) => (int) $get('ga_unspecified') > 0)
                     ->columnSpanFull(),
 
                 // 4. Overseas Filipinos
                 TextInput::make('ga_overseas_filipinos')
                     ->label('How many overseas filipino/s?')
+                    ->numeric()
+                    ->default(0)
+                    ->live()
+                    ->columnSpanFull(),
+
+                TextInput::make('gn_overseas_filipinos')
+                    ->label('How many nights did they stay? (Overseas Filipinos)')
+                    ->numeric()
+                    ->default(0)
+                    ->visible(fn ($get) => (int) $get('ga_overseas_filipinos') > 0)
+                    ->columnSpanFull(),
+
+
+                // ==========================================
+                // BOTTOM TOTALS SECTION
+                // ==========================================
+                Placeholder::make('divider_3')
+                    ->hiddenLabel() 
+                    ->columnSpanFull() 
+                    ->content(new HtmlString('
+                        <div style="margin-top: 30px; margin-bottom: 10px; padding: 20px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #f59e0b; border-radius: 8px;">
+                            <h2 style="font-size: 1.25rem; font-weight: bold; color: #ffffff; margin-bottom: 0; margin-top: 0;">📈 TOTALS</h2>
+                        </div>
+                    ')),
+
+                TextInput::make('number_of_nights')
+                    ->label('Total No. Nights')
+                    ->numeric()
+                    ->default(0)
+                    ->columnSpanFull(),
+
+                TextInput::make('rooms_occupied')
+                    ->label('Number of Rooms Occupied')
                     ->numeric()
                     ->default(0)
                     ->columnSpanFull(),
@@ -550,10 +605,10 @@ class AccommodationResource extends Resource
                     ->getStateUsing(fn ($record) => 'Rooms: ' . $record->no_of_rooms)
                     ->description(fn ($record) => 'M: ' . $record->male_employees . ' | F: ' . $record->female_employees),
 
-                TextColumn::make('ga_stats')
-                    ->label('Guest Arrivals (GA)')
-                    ->getStateUsing(fn ($record) => 'PH: ' . ($record->ga_ph_count ?: '0'))
-                    ->description(fn ($record) => 'Foreign: ' . ($record->ga_non_fil_count ?: '0') . ' | Unspecified: ' . $record->ga_unspecified . ' | OF: ' . $record->ga_overseas_filipinos),
+                TextColumn::make('gn_stats')
+                    ->label('Guest Nights (GN)')
+                    ->getStateUsing(fn ($record) => 'PH: ' . ($record->gn_ph_count ?: '0'))
+                    ->description(fn ($record) => 'Foreign: ' . ($record->gn_non_fil_count ?: '0') . ' | Unspecified: ' . $record->gn_unspecified . ' | OF: ' . $record->gn_overseas_filipinos),
 
                 TextColumn::make('rooms_occupied')
                     ->label('Rooms Occupied')

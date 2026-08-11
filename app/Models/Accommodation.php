@@ -29,5 +29,7 @@ class Accommodation extends Model
         'gn_non_fil_country',
         'gn_unspecified',
         'gn_overseas_filipinos',
+        'number_of_nights',
+        'rooms_occupied',
     ];
 }
