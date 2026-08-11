@@ -13,7 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Support\HtmlString; // ADDED: Required for our custom visual separators
+use Illuminate\Support\HtmlString;
 
 class AccommodationResource extends Resource
 {
@@ -32,7 +32,8 @@ class AccommodationResource extends Resource
                 // MASSIVE VISUAL DIVIDER: ESTABLISHMENT INFO
                 // ==========================================
                 Placeholder::make('divider_1')
-                    ->label('')
+                    ->hiddenLabel() // Removes the "Divider 1" text completely
+                    ->columnSpanFull() // Stretches the card across the entire width
                     ->content(new HtmlString('
                         <div style="margin-bottom: 10px; padding: 25px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #3b82f6; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                             <h2 style="font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 5px; margin-top: 0;">📋 PART 1: ESTABLISHMENT PROFILE</h2>
@@ -197,33 +198,33 @@ class AccommodationResource extends Resource
                             'BCV TRANSIENT HOUSE' => 'Itogon',
                             'LOLA BEEZ TRANSIENT' => 'Itogon',
                             'JRL TRANSIENT HOUSE' => 'Itogon',
-                            'AMAPOLA CLIFF TRANSIENT HOUSE' => 'Itogon',
-                            'BABAN BOY HOMESTAY' => 'Kabayan',
-                            'SUMMIT GEMS HOMESTAY' => 'Kabayan',
-                            'ABONG NEN JUAN' => 'Kabayan',
-                            'RYAN HOMESTAY' => 'Kabayan',
-                            'BABAN\'S HOMESTAY- SUSAN  (02)' => 'Kabayan',
-                            'AGNES HOMESTAY' => 'Kabayan',
-                            'BABAN HOMESTAY- NEDA (04)' => 'Kabayan',
-                            'CORNELIA HOMESTAY' => 'Kabayan',
-                            'BABAN\'S HOMESTAY- JALLEN  (05)' => 'Kabayan',
-                            'JONELIN HOMESTAY' => 'Kabayan',
-                            'CLOUDFIELD TRANSIENT HOUSE' => 'Tuba',
-                            'ERGIM TRANSIENT HOUSE' => 'Itogon',
-                            'HERITAGE FARM HOMESTAY' => 'Tuba',
-                            'JEWEL IGOROT BUILDING' => 'La Trinidad',
-                            'TAMID-AY HOMESTAY' => 'Bakun',
-                            'ITOGON MOUNTAIN VILLAGE CABINS' => 'Itogon',
-                            'RIDDLEVIEW TRANSIENT HOUSE' => 'Atok',
-                            'MAMITAS HOMESTAY' => 'Atok',
-                            'Kabatuan I nn & Resort' => 'Mankayan',
-                            'Imeelou Inn & Resort' => 'Mankayan',
-                            'Everest Lodge' => 'Mankayan',
-                            'LEAVES & SPIKES TRANSIENT HOUSE' => 'Atok',
-                            'BABAN\'S HOMESTAY-SYLVIA (03)' => 'Kabayan',
-                            'OSDAWEN HOMESTAY' => 'Kabayan',
-                            'NANAY HONORIA' => 'Kabayan',
-                            'RAG HOMESTAY' => 'Kabayan',
+                            'AMAPOLA CLIFF TRANSIENT HOUSE' => 'AMAPOLA CLIFF TRANSIENT HOUSE',
+                            'BABAN BOY HOMESTAY' => 'BABAN BOY HOMESTAY',
+                            'SUMMIT GEMS HOMESTAY' => 'SUMMIT GEMS HOMESTAY',
+                            'ABONG NEN JUAN' => 'ABONG NEN JUAN',
+                            'RYAN HOMESTAY' => 'RYAN HOMESTAY',
+                            'BABAN\'S HOMESTAY- SUSAN  (02)' => 'BABAN\'S HOMESTAY- SUSAN  (02)',
+                            'AGNES HOMESTAY' => 'AGNES HOMESTAY',
+                            'BABAN HOMESTAY- NEDA (04)' => 'BABAN HOMESTAY- NEDA (04)',
+                            'CORNELIA HOMESTAY' => 'CORNELIA HOMESTAY',
+                            'BABAN\'S HOMESTAY- JALLEN  (05)' => 'BABAN\'S HOMESTAY- JALLEN  (05)',
+                            'JONELIN HOMESTAY' => 'JONELIN HOMESTAY',
+                            'CLOUDFIELD TRANSIENT HOUSE' => 'CLOUDFIELD TRANSIENT HOUSE',
+                            'ERGIM TRANSIENT HOUSE' => 'ERGIM TRANSIENT HOUSE',
+                            'HERITAGE FARM HOMESTAY' => 'HERITAGE FARM HOMESTAY',
+                            'JEWEL IGOROT BUILDING' => 'JEWEL IGOROT BUILDING',
+                            'TAMID-AY HOMESTAY' => 'TAMID-AY HOMESTAY',
+                            'ITOGON MOUNTAIN VILLAGE CABINS' => 'ITOGON MOUNTAIN VILLAGE CABINS',
+                            'RIDDLEVIEW TRANSIENT HOUSE' => 'RIDDLEVIEW TRANSIENT HOUSE',
+                            'MAMITAS HOMESTAY' => 'MAMITAS HOMESTAY',
+                            'Kabatuan I nn & Resort' => 'Kabatuan I nn & Resort',
+                            'Imeelou Inn & Resort' => 'Imeelou Inn & Resort',
+                            'Everest Lodge' => 'Everest Lodge',
+                            'LEAVES & SPIKES TRANSIENT HOUSE' => 'LEAVES & SPIKES TRANSIENT HOUSE',
+                            'BABAN\'S HOMESTAY-SYLVIA (03)' => 'BABAN\'S HOMESTAY-SYLVIA (03)',
+                            'OSDAWEN HOMESTAY' => 'OSDAWEN HOMESTAY',
+                            'NANAY HONORIA' => 'NANAY HONORIA',
+                            'RAG HOMESTAY' => 'RAG HOMESTAY',
                         ];
                         if (isset($mapping[$state])) {
                             $set('municipality', $mapping[$state]);
@@ -477,7 +478,8 @@ class AccommodationResource extends Resource
                 // MASSIVE VISUAL DIVIDER: GUEST METRICS
                 // ==========================================
                 Placeholder::make('divider_2')
-                    ->label('')
+                    ->hiddenLabel() // Removes the "Divider 2" text completely
+                    ->columnSpanFull() // Stretches the card across the entire width
                     ->content(new HtmlString('
                         <div style="margin-top: 50px; margin-bottom: 10px; padding: 25px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #10b981; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                             <h2 style="font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 5px; margin-top: 0;">📊 PART 2: GUEST ARRIVALS & NIGHTS</h2>
