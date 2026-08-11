@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Get; // ADDED: Required to read the value of other fields in real-time
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\HtmlString;
@@ -475,7 +476,7 @@ class AccommodationResource extends Resource
                     ->default(0),
 
                 // ==========================================
-                // PART 2: THE NEW GUEST ARRIVALS LOGIC
+                // PART 2: CONDITIONAL GUEST ARRIVALS
                 // ==========================================
                 Placeholder::make('divider_2')
                     ->hiddenLabel() 
@@ -487,27 +488,31 @@ class AccommodationResource extends Resource
                         </div>
                     ')),
 
-                // 1. Philippine Residents
+                // 1. Philippine Residents (Conditionally shows province)
                 TextInput::make('ga_ph_count')
                     ->label('How many Philippine resident/s?')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->live(), // Tells Filament to watch this field for changes
 
                 TextInput::make('ga_ph_province')
-                    ->label('What province are they from?')
+                    ->label('What province/s are they from?')
                     ->placeholder('e.g., Benguet, Cebu')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->visible(fn (Get $get) => (int) $get('ga_ph_count') > 0), // Appears instantly if count is > 0
 
-                // 2. Non-Philippine Residents
+                // 2. Non-Philippine Residents (Conditionally shows country)
                 TextInput::make('ga_non_fil_count')
                     ->label('How many non-Philippine resident/s?')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->live(), // Tells Filament to watch this field for changes
 
                 TextInput::make('ga_non_fil_country')
-                    ->label('Which country are they from?')
+                    ->label('Which country/countries are they from?')
                     ->placeholder('e.g., South Korea, Japan')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->visible(fn (Get $get) => (int) $get('ga_non_fil_count') > 0), // Appears instantly if count is > 0
 
                 // 3. Unspecified
                 TextInput::make('ga_unspecified')
