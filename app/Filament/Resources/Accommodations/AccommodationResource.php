@@ -119,86 +119,86 @@ class AccommodationResource extends Resource
                             'PULTAK LODGE' => 'Kabayan',
                             'WANARA HOMESTAY' => 'Kabayan',
                             'LA-FE HOMESTAY' => 'Kabayan',
-                            'KALAHAN HOMESTAY' => 'Kabayan',
-                            'BATAKAGAN HOMESTAY' => 'Kabayan',
-                            'BENITOS HOMESTAY' => 'Kabayan',
-                            'AMIGO HOMESTAY' => 'Kabayan',
-                            'BRUCELENESS HOMESTAY' => 'Kabayan',
-                            'SHIELDONS HOMESTAY' => 'Kabayan',
-                            'CLOUDGAZER HOMESTAY' => 'Kabayan',
-                            'NIVERA HOMESTAY' => 'Kabayan',
-                            'AKIKI TOURIST INN' => 'Kabayan',
-                            'BRGY. TINONGDAN HOMESTAY' => 'Kabayan',
-                            'DITAS HOMESTAY' => 'Kabayan',
-                            'FRED AGUINSE HOMESTAY' => 'Kabayan',
-                            'ROMEO HOMESTAY' => 'Kabayan',
-                            'MANUEL HOMESTAY' => 'Kabayan',
-                            'WAKIT HOMESTAY' => 'Kabayan',
-                            'BERNARD HOMESTAY' => 'Kabayan',
-                            'REGINE HOMESTAY' => 'Kabayan',
-                            'FELICIANO HOMESTAY' => 'Kabayan',
-                            'JUBAN HOMESTAY' => 'Kabayan',
-                            'GARCIA HOMESTAY' => 'Kabayan',
-                            'ARLENE HOMESTAY' => 'Kabayan',
-                            'EVA HOMESTAY' => 'Kabayan',
-                            'TREKKERS HOMESTAY' => 'Kabayan',
-                            'JENELIN HOMESTAY' => 'Kabayan',
-                            'AMBROCIO HOMESTAY' => 'Kabayan',
-                            'BAHAY NI KUYA ROLI HOMESTAY' => 'Kabayan',
-                            'AVONG NEN SUVANI CULTURAL HERITAGE HOME' => 'Kapangan',
-                            'MAYFLOR\'S FASTFOOD HAUS AND LODGING' => 'Kapangan',
-                            'TEPEE HOUSE' => 'Kapangan',
-                            'MUNICIPAL GUEST HOUSE' => 'Kibungan',
-                            'OUR LADY OF LOURDES PARISH GUEST HOUSE' => 'Kibungan',
-                            'BARANGAY GUEST ROOM' => 'Kibungan',
-                            'MAYOR\'S QAURTER' => 'Kibungan',
-                            'OMAG-MUNICIPAL NURSERY GUEST HOUSE' => 'Kibungan',
-                            'LOLA NILDA\'S AGRITOURISM PARK-HOMESTAY' => 'La Trinidad',
-                            'LA TRINIDAD HOMESTAY' => 'La Trinidad',
-                            'COSMIC FARM' => 'La Trinidad',
-                            'BAPTC GUESTEL' => 'La Trinidad',
-                            'HELP ENGLISH LANGUAGE PROGRAM' => 'La Trinidad',
-                            'HIGHLAND BLOSSOMS' => 'La Trinidad',
-                            'JS LODGE' => 'La Trinidad',
-                            'BALI BEATA LODGING HOME' => 'La Trinidad',
-                            'STRAWBERRY VALLEY HOTEL & RESTAURANT' => 'La Trinidad',
-                            'WANAY\'S ROCKY MOUNTAIN HOMESTAY' => 'La Trinidad',
-                            'BSU GLADIOLA CENTER' => 'La Trinidad',
-                            'GARDEN NEN INES' => 'La Trinidad',
-                            'TANAW PRESA' => 'La Trinidad',
-                            'NATURE TOWER HOTEL' => 'La Trinidad',
-                            'ADELLE\'S TRANSIENT' => 'La Trinidad',
-                            'KOMEDOR CAFÉ AND INN (CHERYL ANN A. CAJIGAN)' => 'Mankayan',
-                            'LAY-ODAN FARM (HECTOR D. DELA CRUZ)' => 'Mankayan',
-                            'MICHELLE P. MANGALLAY' => 'Mankayan',
-                            'PRECIOUS TWINS LODGE (REYNALDO D. PALOMO)' => 'Mankayan',
-                            'ST. JOHN EVANGELIST GUEST HOUSE' => 'Mankayan',
-                            'UPSIDE DOWN CAFÉ AND HOMESTAY' => 'Mankayan',
-                            'HI-ACRES CAMP' => 'Sablan',
-                            'LEAVES & PETALS ECO-GARDEN RESORT' => 'Sablan',
-                            'SABLAN HILLS' => 'Sablan',
-                            'LUSTREA TRANSIENT HOUSE' => 'Sablan',
-                            'RKK\'S TRANSIENT HOUSE' => 'Tuba',
-                            'EVER LODGE' => 'Tuba',
-                            'PALM GROVE HOTSPRING AND MOUNTAIN RESORT' => 'Tuba',
-                            'ASIN HOTSPRING POOTEN RESORT' => 'Tuba',
-                            'RIVERVIEW WATERPARK' => 'Tuba',
-                            'VALLEYPOINT CAMPSITE' => 'Tuba',
-                            'BEZ AND OH LODGING HOME' => 'Tuba',
-                            'BALAI TAKO (BY NOBLE NEST REALTY AND SERVICES)' => 'Tuba',
-                            'WINACA ECO-CULTURAL VILLAGE' => 'Tublay',
-                            'ANGLUBEN HOMESTAY' => 'Bakun',
-                            'FERNANDEZ HOMESTAY' => 'Bakun',
-                            'SAGUDAY BUILDING' => 'Bakun',
-                            'BAGAYAO HOMESTAY' => 'Bakun',
-                            'KINGS CABIN TRANSIENT HOUSE' => 'Itogon',
-                            'LAZY BEAR' => 'Itogon',
-                            'INA PURINGS TRANSIENT HOUSE' => 'Itogon',
-                            'HEARTSVILLE TRANSIENT HOUSE' => 'Itogon',
-                            'CLEOS TRANSIENT HOUSE' => 'Itogon',
-                            'BCV TRANSIENT HOUSE' => 'Itogon',
-                            'LOLA BEEZ TRANSIENT' => 'Itogon',
-                            'JRL TRANSIENT HOUSE' => 'Itogon',
+                            'KALAHAN HOMESTAY' => 'KALAHAN HOMESTAY',
+                            'BATAKAGAN HOMESTAY' => 'BATAKAGAN HOMESTAY',
+                            'BENITOS HOMESTAY' => 'BENITOS HOMESTAY',
+                            'AMIGO HOMESTAY' => 'AMIGO HOMESTAY',
+                            'BRUCELENESS HOMESTAY' => 'BRUCELENESS HOMESTAY',
+                            'SHIELDONS HOMESTAY' => 'SHIELDONS HOMESTAY',
+                            'CLOUDGAZER HOMESTAY' => 'CLOUDGAZER HOMESTAY',
+                            'NIVERA HOMESTAY' => 'NIVERA HOMESTAY',
+                            'AKIKI TOURIST INN' => 'AKIKI TOURIST INN',
+                            'BRGY. TINONGDAN HOMESTAY' => 'BRGY. TINONGDAN HOMESTAY',
+                            'DITAS HOMESTAY' => 'DITAS HOMESTAY',
+                            'FRED AGUINSE HOMESTAY' => 'FRED AGUINSE HOMESTAY',
+                            'ROMEO HOMESTAY' => 'ROMEO HOMESTAY',
+                            'MANUEL HOMESTAY' => 'MANUEL HOMESTAY',
+                            'WAKIT HOMESTAY' => 'WAKIT HOMESTAY',
+                            'BERNARD HOMESTAY' => 'BERNARD HOMESTAY',
+                            'REGINE HOMESTAY' => 'REGINE HOMESTAY',
+                            'FELICIANO HOMESTAY' => 'FELICIANO HOMESTAY',
+                            'JUBAN HOMESTAY' => 'JUBAN HOMESTAY',
+                            'GARCIA HOMESTAY' => 'GARCIA HOMESTAY',
+                            'ARLENE HOMESTAY' => 'ARLENE HOMESTAY',
+                            'EVA HOMESTAY' => 'EVA HOMESTAY',
+                            'TREKKERS HOMESTAY' => 'TREKKERS HOMESTAY',
+                            'JENELIN HOMESTAY' => 'JENELIN HOMESTAY',
+                            'AMBROCIO HOMESTAY' => 'AMBROCIO HOMESTAY',
+                            'BAHAY NI KUYA ROLI HOMESTAY' => 'BAHAY NI KUYA ROLI HOMESTAY',
+                            'AVONG NEN SUVANI CULTURAL HERITAGE HOME' => 'AVONG NEN SUVANI CULTURAL HERITAGE HOME',
+                            'MAYFLOR\'S FASTFOOD HAUS AND LODGING' => 'MAYFLOR\'S FASTFOOD HAUS AND LODGING',
+                            'TEPEE HOUSE' => 'TEPEE HOUSE',
+                            'MUNICIPAL GUEST HOUSE' => 'MUNICIPAL GUEST HOUSE',
+                            'OUR LADY OF LOURDES PARISH GUEST HOUSE' => 'OUR LADY OF LOURDES PARISH GUEST HOUSE',
+                            'BARANGAY GUEST ROOM' => 'BARANGAY GUEST ROOM',
+                            'MAYOR\'S QAURTER' => 'MAYOR\'S QAURTER',
+                            'OMAG-MUNICIPAL NURSERY GUEST HOUSE' => 'OMAG-MUNICIPAL NURSERY GUEST HOUSE',
+                            'LOLA NILDA\'S AGRITOURISM PARK-HOMESTAY' => 'LOLA NILDA\'S AGRITOURISM PARK-HOMESTAY',
+                            'LA TRINIDAD HOMESTAY' => 'LA TRINIDAD HOMESTAY',
+                            'COSMIC FARM' => 'COSMIC FARM',
+                            'BAPTC GUESTEL' => 'BAPTC GUESTEL',
+                            'HELP ENGLISH LANGUAGE PROGRAM' => 'HELP ENGLISH LANGUAGE PROGRAM',
+                            'HIGHLAND BLOSSOMS' => 'HIGHLAND BLOSSOMS',
+                            'JS LODGE' => 'JS LODGE',
+                            'BALI BEATA LODGING HOME' => 'BALI BEATA LODGING HOME',
+                            'STRAWBERRY VALLEY HOTEL & RESTAURANT' => 'STRAWBERRY VALLEY HOTEL & RESTAURANT',
+                            'WANAY\'S ROCKY MOUNTAIN HOMESTAY' => 'WANAY\'S ROCKY MOUNTAIN HOMESTAY',
+                            'BSU GLADIOLA CENTER' => 'BSU GLADIOLA CENTER',
+                            'GARDEN NEN INES' => 'GARDEN NEN INES',
+                            'TANAW PRESA' => 'TANAW PRESA',
+                            'NATURE TOWER HOTEL' => 'NATURE TOWER HOTEL',
+                            'ADELLE\'S TRANSIENT' => 'ADELLE\'S TRANSIENT',
+                            'KOMEDOR CAFÉ AND INN (CHERYL ANN A. CAJIGAN)' => 'KOMEDOR CAFÉ AND INN (CHERYL ANN A. CAJIGAN)',
+                            'LAY-ODAN FARM (HECTOR D. DELA CRUZ)' => 'LAY-ODAN FARM (HECTOR D. DELA CRUZ)',
+                            'MICHELLE P. MANGALLAY' => 'MICHELLE P. MANGALLAY',
+                            'PRECIOUS TWINS LODGE (REYNALDO D. PALOMO)' => 'PRECIOUS TWINS LODGE (REYNALDO D. PALOMO)',
+                            'ST. JOHN EVANGELIST GUEST HOUSE' => 'ST. JOHN EVANGELIST GUEST HOUSE',
+                            'UPSIDE DOWN CAFÉ AND HOMESTAY' => 'UPSIDE DOWN CAFÉ AND HOMESTAY',
+                            'HI-ACRES CAMP' => 'HI-ACRES CAMP',
+                            'LEAVES & PETALS ECO-GARDEN RESORT' => 'LEAVES & PETALS ECO-GARDEN RESORT',
+                            'SABLAN HILLS' => 'SABLAN HILLS',
+                            'LUSTREA TRANSIENT HOUSE' => 'LUSTREA TRANSIENT HOUSE',
+                            'RKK\'S TRANSIENT HOUSE' => 'RKK\'S TRANSIENT HOUSE',
+                            'EVER LODGE' => 'EVER LODGE',
+                            'PALM GROVE HOTSPRING AND MOUNTAIN RESORT' => 'PALM GROVE HOTSPRING AND MOUNTAIN RESORT',
+                            'ASIN HOTSPRING POOTEN RESORT' => 'ASIN HOTSPRING POOTEN RESORT',
+                            'RIVERVIEW WATERPARK' => 'RIVERVIEW WATERPARK',
+                            'VALLEYPOINT CAMPSITE' => 'VALLEYPOINT CAMPSITE',
+                            'BEZ AND OH LODGING HOME' => 'BEZ AND OH LODGING HOME',
+                            'BALAI TAKO (BY NOBLE NEST REALTY AND SERVICES)' => 'BALAI TAKO (BY NOBLE NEST REALTY AND SERVICES)',
+                            'WINACA ECO-CULTURAL VILLAGE' => 'WINACA ECO-CULTURAL VILLAGE',
+                            'ANGLUBEN HOMESTAY' => 'ANGLUBEN HOMESTAY',
+                            'FERNANDEZ HOMESTAY' => 'FERNANDEZ HOMESTAY',
+                            'SAGUDAY BUILDING' => 'SAGUDAY BUILDING',
+                            'BAGAYAO HOMESTAY' => 'BAGAYAO HOMESTAY',
+                            'KINGS CABIN TRANSIENT HOUSE' => 'KINGS CABIN TRANSIENT HOUSE',
+                            'LAZY BEAR' => 'LAZY BEAR',
+                            'INA PURINGS TRANSIENT HOUSE' => 'INA PURINGS TRANSIENT HOUSE',
+                            'HEARTSVILLE TRANSIENT HOUSE' => 'HEARTSVILLE TRANSIENT HOUSE',
+                            'CLEOS TRANSIENT HOUSE' => 'CLEOS TRANSIENT HOUSE',
+                            'BCV TRANSIENT HOUSE' => 'BCV TRANSIENT HOUSE',
+                            'LOLA BEEZ TRANSIENT' => 'LOLA BEEZ TRANSIENT',
+                            'JRL TRANSIENT HOUSE' => 'JRL TRANSIENT HOUSE',
                             'AMAPOLA CLIFF TRANSIENT HOUSE' => 'AMAPOLA CLIFF TRANSIENT HOUSE',
                             'BABAN BOY HOMESTAY' => 'BABAN BOY HOMESTAY',
                             'SUMMIT GEMS HOMESTAY' => 'SUMMIT GEMS HOMESTAY',
@@ -593,13 +593,70 @@ class AccommodationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'md' => 2, // 2 cards on medium screens
+                'xl' => 3, // 3 cards on large screens
+            ])
             ->recordUrl(fn ($record) => Pages\ViewAccommodation::getUrl(['record' => $record]))
             ->columns([
                 TextColumn::make('name')
-                    ->label('Establishment Record')
-                    ->weight('bold')
-                    ->description(fn ($record) => $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year)
-                    ->searchable(),
+                    ->label('') 
+                    ->searchable()
+                    ->html()
+                    ->getStateUsing(function ($record) {
+                        
+                        // 1. Calculate Occupancy Rate safely
+                        $noOfRooms = (int)$record->no_of_rooms;
+                        $occupied = (int)$record->rooms_occupied;
+                        $occupancyRate = $noOfRooms > 0 ? round(($occupied / $noOfRooms) * 100) : 0;
+                        $occupancyRate = min($occupancyRate, 100); // Cap at 100%
+                        
+                        // Set the progress bar color: Green (good) -> Yellow (mid) -> Red (full)
+                        $barColor = $occupancyRate >= 80 ? '#ef4444' : ($occupancyRate >= 50 ? '#f59e0b' : '#10b981');
+
+                        // 2. Sum up total guests
+                        $totalGuests = (int)$record->ga_ph_count + (int)$record->ga_non_fil_count + (int)$record->ga_unspecified + (int)$record->ga_overseas_filipinos;
+
+                        // 3. Render the customized Figma-style HTML Card
+                        return new HtmlString('
+                            <div style="display: flex; flex-direction: column; gap: 1rem; cursor: pointer;">
+                                
+                                <!-- Card Header -->
+                                <div>
+                                    <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0;">' . $record->name . '</h3>
+                                    <p style="font-size: 0.875rem; color: #9ca3af; margin: 0; margin-top: 2px;">📍 ' . $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year . '</p>
+                                </div>
+                                
+                                <!-- 3 Metric Boxes -->
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; background-color: #27272a; padding: 0.75rem; border-radius: 0.5rem;">
+                                    <div>
+                                        <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
+                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; color: #10b981; font-size: 1.125rem;">' . $occupied . '</div>
+                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Occupied</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; color: #f59e0b; font-size: 1.125rem;">' . $totalGuests . '</div>
+                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Guests</div>
+                                    </div>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #d4d4d8; margin-bottom: 0.25rem;">
+                                        <span>Occupancy Rate</span>
+                                        <span style="font-weight: bold;">' . $occupancyRate . '%</span>
+                                    </div>
+                                    <div style="width: 100%; background-color: #3f3f46; border-radius: 9999px; height: 6px; overflow: hidden;">
+                                        <div style="background-color: ' . $barColor . '; height: 100%; border-radius: 9999px; width: ' . $occupancyRate . '%;"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        ');
+                    }),
             ])
             ->filters([
                 SelectFilter::make('municipality')
@@ -622,7 +679,7 @@ class AccommodationResource extends Resource
         return [
             'index' => Pages\ListAccommodations::route('/'),
             'create' => Pages\CreateAccommodation::route('/create'),
-            'view' => Pages\ViewAccommodation::route('/{record}'), // ADDED THIS
+            'view' => Pages\ViewAccommodation::route('/{record}'),
             'edit' => Pages\EditAccommodation::route('/{record}/edit'),
         ];
     }
