@@ -595,26 +595,10 @@ class AccommodationResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Establishment')
+                    ->label('Establishment Record')
                     ->weight('bold')
                     ->description(fn ($record) => $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year)
                     ->searchable(),
-
-                TextColumn::make('capacity')
-                    ->label('Capacity & Staff')
-                    ->getStateUsing(fn ($record) => $record->no_of_rooms . ' Total Rooms')
-                    ->description(fn ($record) => $record->male_employees . ' Male • ' . $record->female_employees . ' Female'),
-
-                TextColumn::make('gn_stats')
-                    ->label('Guest Nights')
-                    ->getStateUsing(fn ($record) => $record->gn_ph_count . ' PH Residents')
-                    ->description(fn ($record) => $record->gn_non_fil_count . ' Foreign • ' . $record->gn_overseas_filipinos . ' OF • ' . $record->gn_unspecified . ' Unspecified'),
-
-                TextColumn::make('rooms_occupied')
-                    ->label('Occupied')
-                    ->badge()
-                    ->color('warning')
-                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('municipality')
@@ -624,6 +608,11 @@ class AccommodationResource extends Resource
                         'Kapangan' => 'Kapangan', 'Kibungan' => 'Kibungan', 'La Trinidad' => 'La Trinidad', 
                         'Mankayan' => 'Mankayan', 'Sablan' => 'Sablan', 'Tuba' => 'Tuba', 'Tublay' => 'Tublay',
                     ]),
+            ])
+            ->actions([
+                \Filament\Tables\Actions\EditAction::make()
+                    ->label('View / Edit Data')
+                    ->icon('heroicon-m-eye'),
             ]);
     }
 
