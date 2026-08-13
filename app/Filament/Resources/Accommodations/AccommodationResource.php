@@ -585,41 +585,39 @@ class AccommodationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->contentGrid([
-                'md' => 2, // 2 cards on medium screens
-                'xl' => 3, // 3 cards on large screens
-            ])
+            // IF toggle is true -> Use Grid Layout | IF false -> Use standard Table rows
+            ->contentGrid(fn ($livewire) => (property_exists($livewire, 'isGrid') && $livewire->isGrid) ? [
+                'md' => 2,
+                'xl' => 3,
+            ] : null)
             ->recordUrl(fn ($record) => Pages\ViewAccommodation::getUrl(['record' => $record]))
             ->columns([
+                
+                // ==========================================
+                // 1. THE GRID VIEW (HTML Card)
+                // ==========================================
                 TextColumn::make('name')
                     ->label('') 
                     ->searchable()
                     ->html()
+                    // Only show this card when in Grid mode
+                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? $livewire->isGrid : true)
                     ->getStateUsing(function ($record) {
                         
-                        // 1. Calculate Occupancy Rate safely
                         $noOfRooms = (int)$record->no_of_rooms;
                         $occupied = (int)$record->rooms_occupied;
                         $occupancyRate = $noOfRooms > 0 ? round(($occupied / $noOfRooms) * 100) : 0;
-                        $occupancyRate = min($occupancyRate, 100); // Cap at 100%
+                        $occupancyRate = min($occupancyRate, 100);
                         
-                        // Set the progress bar color: Green (good) -> Yellow (mid) -> Red (full)
                         $barColor = $occupancyRate >= 80 ? '#ef4444' : ($occupancyRate >= 50 ? '#f59e0b' : '#10b981');
-
-                        // 2. Sum up total guests
                         $totalGuests = (int)$record->ga_ph_count + (int)$record->ga_non_fil_count + (int)$record->ga_unspecified + (int)$record->ga_overseas_filipinos;
 
-                        // 3. Render the customized Figma-style HTML Card
                         return new HtmlString('
                             <div style="display: flex; flex-direction: column; gap: 1rem; cursor: pointer;">
-                                
-                                <!-- Card Header -->
                                 <div>
                                     <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0;">' . $record->name . '</h3>
                                     <p style="font-size: 0.875rem; color: #9ca3af; margin: 0; margin-top: 2px;">📍 ' . $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year . '</p>
                                 </div>
-                                
-                                <!-- 3 Metric Boxes -->
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; background-color: #27272a; padding: 0.75rem; border-radius: 0.5rem;">
                                     <div>
                                         <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
@@ -634,8 +632,6 @@ class AccommodationResource extends Resource
                                         <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Arrivals</div>
                                     </div>
                                 </div>
-
-                                <!-- Progress Bar -->
                                 <div>
                                     <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #d4d4d8; margin-bottom: 0.25rem;">
                                         <span>Occupancy Rate</span>
@@ -645,10 +641,40 @@ class AccommodationResource extends Resource
                                         <div style="background-color: ' . $barColor . '; height: 100%; border-radius: 9999px; width: ' . $occupancyRate . '%;"></div>
                                     </div>
                                 </div>
-                                
                             </div>
                         ');
                     }),
+
+                // ==========================================
+                // 2. THE LIST VIEW (Clean Stacked Rows)
+                // ==========================================
+                TextColumn::make('list_name')
+                    ->label('Establishment')
+                    ->getStateUsing(fn ($record) => $record->name)
+                    ->description(fn ($record) => $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year)
+                    ->searchable(query: fn ($query, string $search) => $query->where('name', 'like', "%{$search}%")->orWhere('municipality', 'like', "%{$search}%"))
+                    ->weight('bold')
+                    // Only show this column when in List mode (!isGrid)
+                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
+
+                TextColumn::make('capacity')
+                    ->label('Capacity & Staff')
+                    ->getStateUsing(fn ($record) => $record->no_of_rooms . ' Total Rooms')
+                    ->description(fn ($record) => $record->male_employees . ' Male • ' . $record->female_employees . ' Female')
+                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
+
+                TextColumn::make('gn_stats')
+                    ->label('Guest Nights')
+                    ->getStateUsing(fn ($record) => $record->gn_ph_count . ' PH Residents')
+                    ->description(fn ($record) => $record->gn_non_fil_count . ' Foreign • ' . $record->gn_overseas_filipinos . ' OF • ' . $record->gn_unspecified . ' Unspecified')
+                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
+
+                TextColumn::make('rooms_occupied')
+                    ->label('Occupied')
+                    ->badge()
+                    ->color('warning')
+                    ->sortable()
+                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
             ])
             ->filters([
                 SelectFilter::make('municipality')
