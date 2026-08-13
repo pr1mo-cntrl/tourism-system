@@ -593,6 +593,7 @@ class AccommodationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(fn ($record) => Pages\ViewAccommodation::getUrl(['record' => $record]))
             ->columns([
                 TextColumn::make('name')
                     ->label('Establishment Record')
@@ -621,10 +622,11 @@ class AccommodationResource extends Resource
         return [
             'index' => Pages\ListAccommodations::route('/'),
             'create' => Pages\CreateAccommodation::route('/create'),
+            'view' => Pages\ViewAccommodation::route('/{record}'), // ADDED THIS
             'edit' => Pages\EditAccommodation::route('/{record}/edit'),
         ];
     }
-
+    
     public static function getWidgets(): array
     {
         return [
