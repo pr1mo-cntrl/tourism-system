@@ -585,96 +585,106 @@ class AccommodationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            // IF toggle is true -> Use Grid Layout | IF false -> Use standard Table rows
-            ->contentGrid(fn ($livewire) => (property_exists($livewire, 'isGrid') && $livewire->isGrid) ? [
-                'md' => 2,
-                'xl' => 3,
-            ] : null)
+            // Dynamic Grid Configuration
+            ->contentGrid(fn ($livewire) => (property_exists($livewire, 'isGrid') && $livewire->isGrid) 
+                ? ['md' => 2, 'xl' => 3] // Grid View: 2 or 3 columns depending on screen size
+                : ['default' => 1]       // List View: 1 column forces horizontal stacking without headers!
+            )
             ->recordUrl(fn ($record) => Pages\ViewAccommodation::getUrl(['record' => $record]))
             ->columns([
-                
-                // ==========================================
-                // 1. THE GRID VIEW (HTML Card)
-                // ==========================================
                 TextColumn::make('name')
                     ->label('') 
                     ->searchable()
                     ->html()
-                    // Only show this card when in Grid mode
-                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? $livewire->isGrid : true)
-                    ->getStateUsing(function ($record) {
+                    ->getStateUsing(function ($record, $livewire) {
                         
+                        // Check if we are in Grid mode or List mode
+                        $isGrid = property_exists($livewire, 'isGrid') ? $livewire->isGrid : true;
+
+                        // Shared Calculations
                         $noOfRooms = (int)$record->no_of_rooms;
                         $occupied = (int)$record->rooms_occupied;
                         $occupancyRate = $noOfRooms > 0 ? round(($occupied / $noOfRooms) * 100) : 0;
-                        $occupancyRate = min($occupancyRate, 100);
+                        $occupancyRate = min($occupancyRate, 100); // Cap at 100%
                         
                         $barColor = $occupancyRate >= 80 ? '#ef4444' : ($occupancyRate >= 50 ? '#f59e0b' : '#10b981');
                         $totalGuests = (int)$record->ga_ph_count + (int)$record->ga_non_fil_count + (int)$record->ga_unspecified + (int)$record->ga_overseas_filipinos;
 
-                        return new HtmlString('
-                            <div style="display: flex; flex-direction: column; gap: 1rem; cursor: pointer;">
-                                <div>
-                                    <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0;">' . $record->name . '</h3>
-                                    <p style="font-size: 0.875rem; color: #9ca3af; margin: 0; margin-top: 2px;">📍 ' . $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year . '</p>
-                                </div>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; background-color: #27272a; padding: 0.75rem; border-radius: 0.5rem;">
+                        if ($isGrid) {
+                            // ==========================================
+                            // 1. GRID VIEW (Vertical Card)
+                            // ==========================================
+                            return new HtmlString('
+                                <div style="display: flex; flex-direction: column; gap: 1rem; cursor: pointer; height: 100%;">
                                     <div>
-                                        <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
-                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Rooms</div>
+                                        <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0;">' . $record->name . '</h3>
+                                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0; margin-top: 2px;">📍 ' . $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year . '</p>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; background-color: #27272a; padding: 0.75rem; border-radius: 0.5rem; flex-grow: 1;">
+                                        <div>
+                                            <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
+                                            <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Rooms</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 700; color: #10b981; font-size: 1.125rem;">' . $occupied . '</div>
+                                            <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Rooms Used</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 700; color: #f59e0b; font-size: 1.125rem;">' . $totalGuests . '</div>
+                                            <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Arrivals</div>
+                                        </div>
                                     </div>
                                     <div>
-                                        <div style="font-weight: 700; color: #10b981; font-size: 1.125rem;">' . $occupied . '</div>
-                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Rooms Used</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-weight: 700; color: #f59e0b; font-size: 1.125rem;">' . $totalGuests . '</div>
-                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Arrivals</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #d4d4d8; margin-bottom: 0.25rem;">
-                                        <span>Occupancy Rate</span>
-                                        <span style="font-weight: bold;">' . $occupancyRate . '%</span>
-                                    </div>
-                                    <div style="width: 100%; background-color: #3f3f46; border-radius: 9999px; height: 6px; overflow: hidden;">
-                                        <div style="background-color: ' . $barColor . '; height: 100%; border-radius: 9999px; width: ' . $occupancyRate . '%;"></div>
+                                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #d4d4d8; margin-bottom: 0.25rem;">
+                                            <span>Occupancy Rate</span>
+                                            <span style="font-weight: bold;">' . $occupancyRate . '%</span>
+                                        </div>
+                                        <div style="width: 100%; background-color: #3f3f46; border-radius: 9999px; height: 6px; overflow: hidden;">
+                                            <div style="background-color: ' . $barColor . '; height: 100%; border-radius: 9999px; width: ' . $occupancyRate . '%;"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ');
+                            ');
+                        } else {
+                            // ==========================================
+                            // 2. LIST VIEW (Horizontal Card exactly like Figma)
+                            // ==========================================
+                            return new HtmlString('
+                                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; cursor: pointer;">
+                                    
+                                    <!-- Left: Info -->
+                                    <div style="flex: 2; padding-right: 1rem;">
+                                        <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0;">' . $record->name . '</h3>
+                                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0; margin-top: 4px;">📍 ' . $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year . '</p>
+                                    </div>
+                                    
+                                    <!-- Middle: Metrics -->
+                                    <div style="display: flex; flex: 3; justify-content: space-around; align-items: center; border-left: 1px solid #3f3f46; border-right: 1px solid #3f3f46; padding: 0 1rem;">
+                                        <div style="text-align: center;">
+                                            <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
+                                            <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Rooms</div>
+                                        </div>
+                                        <div style="text-align: center;">
+                                            <div style="font-weight: 700; color: #10b981; font-size: 1.125rem;">' . $occupied . '</div>
+                                            <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Rooms Used</div>
+                                        </div>
+                                        <div style="text-align: center;">
+                                            <div style="font-weight: 700; color: #f59e0b; font-size: 1.125rem;">' . $totalGuests . '</div>
+                                            <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Arrivals</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right: Occupancy Badge -->
+                                    <div style="flex: 1; text-align: right; padding-left: 1rem;">
+                                        <div style="display: inline-block; padding: 0.5rem 1rem; border: 1px solid ' . $barColor . '; border-radius: 9999px; background-color: rgba(24, 24, 27, 0.5);">
+                                            <span style="color: ' . $barColor . '; font-weight: bold; font-size: 0.875rem;">' . $occupancyRate . '% Occupied</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            ');
+                        }
                     }),
-
-                // ==========================================
-                // 2. THE LIST VIEW (Clean Stacked Rows)
-                // ==========================================
-                TextColumn::make('list_name')
-                    ->label('Establishment')
-                    ->getStateUsing(fn ($record) => $record->name)
-                    ->description(fn ($record) => $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year)
-                    ->searchable(query: fn ($query, string $search) => $query->where('name', 'like', "%{$search}%")->orWhere('municipality', 'like', "%{$search}%"))
-                    ->weight('bold')
-                    // Only show this column when in List mode (!isGrid)
-                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
-
-                TextColumn::make('capacity')
-                    ->label('Capacity & Staff')
-                    ->getStateUsing(fn ($record) => $record->no_of_rooms . ' Total Rooms')
-                    ->description(fn ($record) => $record->male_employees . ' Male • ' . $record->female_employees . ' Female')
-                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
-
-                TextColumn::make('gn_stats')
-                    ->label('Guest Nights')
-                    ->getStateUsing(fn ($record) => $record->gn_ph_count . ' PH Residents')
-                    ->description(fn ($record) => $record->gn_non_fil_count . ' Foreign • ' . $record->gn_overseas_filipinos . ' OF • ' . $record->gn_unspecified . ' Unspecified')
-                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
-
-                TextColumn::make('rooms_occupied')
-                    ->label('Occupied')
-                    ->badge()
-                    ->color('warning')
-                    ->sortable()
-                    ->visible(fn ($livewire) => property_exists($livewire, 'isGrid') ? ! $livewire->isGrid : false),
             ])
             ->filters([
                 SelectFilter::make('municipality')
