@@ -595,23 +595,23 @@ class AccommodationResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Accommodation | Municipality | Month')
+                    ->label('Establishment')
                     ->weight('bold')
-                    ->description(fn ($record) => $record->municipality . ' | ' . $record->month . ' ' . $record->year)
+                    ->description(fn ($record) => $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year)
                     ->searchable(),
 
-                TextColumn::make('employees_rooms')
-                    ->label('Employees | Total Rooms')
-                    ->getStateUsing(fn ($record) => 'Rooms: ' . $record->no_of_rooms)
-                    ->description(fn ($record) => 'M: ' . $record->male_employees . ' | F: ' . $record->female_employees),
+                TextColumn::make('capacity')
+                    ->label('Capacity & Staff')
+                    ->getStateUsing(fn ($record) => $record->no_of_rooms . ' Total Rooms')
+                    ->description(fn ($record) => $record->male_employees . ' Male • ' . $record->female_employees . ' Female'),
 
                 TextColumn::make('gn_stats')
-                    ->label('Guest Nights (GN)')
-                    ->getStateUsing(fn ($record) => 'PH: ' . ($record->gn_ph_count ?: '0'))
-                    ->description(fn ($record) => 'Foreign: ' . ($record->gn_non_fil_count ?: '0') . ' | Unspecified: ' . $record->gn_unspecified . ' | OF: ' . $record->gn_overseas_filipinos),
+                    ->label('Guest Nights')
+                    ->getStateUsing(fn ($record) => $record->gn_ph_count . ' PH Residents')
+                    ->description(fn ($record) => $record->gn_non_fil_count . ' Foreign • ' . $record->gn_overseas_filipinos . ' OF • ' . $record->gn_unspecified . ' Unspecified'),
 
                 TextColumn::make('rooms_occupied')
-                    ->label('Rooms Occupied')
+                    ->label('Occupied')
                     ->badge()
                     ->color('warning')
                     ->sortable(),
