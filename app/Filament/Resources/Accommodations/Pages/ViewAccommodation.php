@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Accommodations\Pages;
 
 use App\Filament\Resources\Accommodations\AccommodationResource;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema; // CHANGED: Replaced Form with Schema
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\HtmlString;
 
@@ -12,11 +12,11 @@ class ViewAccommodation extends ViewRecord
 {
     protected static string $resource = AccommodationResource::class;
 
-    // We override the form specifically for the View page here!
-    public function form(Form $form): Form
+    // CHANGED: Use Schema here instead of Form to match your system
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Placeholder::make('clean_view')
                     ->hiddenLabel()
                     ->columnSpanFull()
