@@ -571,7 +571,7 @@ class AccommodationResource extends Resource
                     ->columnSpanFull() 
                     ->content(new HtmlString('
                         <div style="margin-top: 30px; margin-bottom: 10px; padding: 20px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #f59e0b; border-radius: 8px;">
-                            <h2 style="font-size: 1.25rem; font-weight: bold; color: #ffffff; margin-bottom: 0; margin-top: 0;">📈 TOTAL NO. ROOMS</h2>
+                            <h2 style="font-size: 1.25rem; font-weight: bold; color: #ffffff; margin-bottom: 0; margin-top: 0;">📈 TOTALS</h2>
                         </div>
                     ')),
 
@@ -631,15 +631,15 @@ class AccommodationResource extends Resource
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; background-color: #27272a; padding: 0.75rem; border-radius: 0.5rem;">
                                     <div>
                                         <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
-                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total</div>
+                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Rooms</div>
                                     </div>
                                     <div>
                                         <div style="font-weight: 700; color: #10b981; font-size: 1.125rem;">' . $occupied . '</div>
-                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Occupied</div>
+                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Rooms Used</div>
                                     </div>
                                     <div>
                                         <div style="font-weight: 700; color: #f59e0b; font-size: 1.125rem;">' . $totalGuests . '</div>
-                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Guests</div>
+                                        <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Arrivals</div>
                                     </div>
                                 </div>
 
