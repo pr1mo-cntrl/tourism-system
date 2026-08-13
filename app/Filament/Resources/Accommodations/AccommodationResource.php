@@ -23,11 +23,20 @@ class AccommodationResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    // ==========================================
-    // 1. THE EDIT / CREATE FORM
-    // ==========================================
     public static function form(Schema $schema): Schema
     {
+        // ==========================================
+        // AUTO-CALCULATION LOGIC FOR NIGHTS
+        // ==========================================
+        $updateTotalNights = function (callable $set, callable $get) {
+            $total = (int) $get('gn_ph_count') + 
+                     (int) $get('gn_non_fil_count') + 
+                     (int) $get('gn_unspecified') + 
+                     (int) $get('gn_overseas_filipinos');
+            
+            $set('number_of_nights', $total);
+        };
+
         return $schema
             ->components([
                 
@@ -141,8 +150,8 @@ class AccommodationResource extends Resource
                             'REGINE HOMESTAY' => 'Kabayan',
                             'FELICIANO HOMESTAY' => 'Kabayan',
                             'JUBAN HOMESTAY' => 'Kabayan',
-                            'GARCIA HOMESTAY' => 'Kabayan',
-                            'ARLENE HOMESTAY' => 'Kabayan',
+                            'GARCIA HOMESTAY' => 'GARCIA HOMESTAY',
+                            'ARLENE HOMESTAY' => 'ARLENE HOMESTAY',
                             'EVA HOMESTAY' => 'Kabayan',
                             'TREKKERS HOMESTAY' => 'Kabayan',
                             'JENELIN HOMESTAY' => 'Kabayan',
@@ -158,50 +167,50 @@ class AccommodationResource extends Resource
                             'OMAG-MUNICIPAL NURSERY GUEST HOUSE' => 'Kibungan',
                             'LOLA NILDA\'S AGRITOURISM PARK-HOMESTAY' => 'LOLA NILDA\'S AGRITOURISM PARK-HOMESTAY',
                             'LA TRINIDAD HOMESTAY' => 'LA TRINIDAD HOMESTAY',
-                            'COSMIC FARM' => 'COSMIC FARM',
-                            'BAPTC GUESTEL' => 'BAPTC GUESTEL',
-                            'HELP ENGLISH LANGUAGE PROGRAM' => 'HELP ENGLISH LANGUAGE PROGRAM',
-                            'HIGHLAND BLOSSOMS' => 'HIGHLAND BLOSSOMS',
-                            'JS LODGE' => 'JS LODGE',
-                            'BALI BEATA LODGING HOME' => 'BALI BEATA LODGING HOME',
-                            'STRAWBERRY VALLEY HOTEL & RESTAURANT' => 'STRAWBERRY VALLEY HOTEL & RESTAURANT',
-                            'WANAY\'S ROCKY MOUNTAIN HOMESTAY' => 'WANAY\'S ROCKY MOUNTAIN HOMESTAY',
-                            'BSU GLADIOLA CENTER' => 'BSU GLADIOLA CENTER',
-                            'GARDEN NEN INES' => 'GARDEN NEN INES',
-                            'TANAW PRESA' => 'TANAW PRESA',
-                            'NATURE TOWER HOTEL' => 'NATURE TOWER HOTEL',
-                            'ADELLE\'S TRANSIENT' => 'ADELLE\'S TRANSIENT',
-                            'KOMEDOR CAFÉ AND INN (CHERYL ANN A. CAJIGAN)' => 'KOMEDOR CAFÉ AND INN (CHERYL ANN A. CAJIGAN)',
-                            'LAY-ODAN FARM (HECTOR D. DELA CRUZ)' => 'LAY-ODAN FARM (HECTOR D. DELA CRUZ)',
-                            'MICHELLE P. MANGALLAY' => 'MICHELLE P. MANGALLAY',
-                            'PRECIOUS TWINS LODGE (REYNALDO D. PALOMO)' => 'PRECIOUS TWINS LODGE (REYNALDO D. PALOMO)',
-                            'ST. JOHN EVANGELIST GUEST HOUSE' => 'ST. JOHN EVANGELIST GUEST HOUSE',
-                            'UPSIDE DOWN CAFÉ AND HOMESTAY' => 'UPSIDE DOWN CAFÉ AND HOMESTAY',
-                            'HI-ACRES CAMP' => 'HI-ACRES CAMP',
-                            'LEAVES & PETALS ECO-GARDEN RESORT' => 'LEAVES & PETALS ECO-GARDEN RESORT',
-                            'SABLAN HILLS' => 'SABLAN HILLS',
-                            'LUSTREA TRANSIENT HOUSE' => 'LUSTREA TRANSIENT HOUSE',
-                            'RKK\'S TRANSIENT HOUSE' => 'RKK\'S TRANSIENT HOUSE',
-                            'EVER LODGE' => 'EVER LODGE',
-                            'PALM GROVE HOTSPRING AND MOUNTAIN RESORT' => 'PALM GROVE HOTSPRING AND MOUNTAIN RESORT',
-                            'ASIN HOTSPRING POOTEN RESORT' => 'ASIN HOTSPRING POOTEN RESORT',
-                            'RIVERVIEW WATERPARK' => 'RIVERVIEW WATERPARK',
-                            'VALLEYPOINT CAMPSITE' => 'VALLEYPOINT CAMPSITE',
-                            'BEZ AND OH LODGING HOME' => 'BEZ AND OH LODGING HOME',
-                            'BALAI TAKO (BY NOBLE NEST REALTY AND SERVICES)' => 'BALAI TAKO (BY NOBLE NEST REALTY AND SERVICES)',
-                            'WINACA ECO-CULTURAL VILLAGE' => 'WINACA ECO-CULTURAL VILLAGE',
-                            'ANGLUBEN HOMESTAY' => 'ANGLUBEN HOMESTAY',
-                            'FERNANDEZ HOMESTAY' => 'FERNANDEZ HOMESTAY',
-                            'SAGUDAY BUILDING' => 'SAGUDAY BUILDING',
-                            'BAGAYAO HOMESTAY' => 'BAGAYAO HOMESTAY',
-                            'KINGS CABIN TRANSIENT HOUSE' => 'KINGS CABIN TRANSIENT HOUSE',
-                            'LAZY BEAR' => 'LAZY BEAR',
-                            'INA PURINGS TRANSIENT HOUSE' => 'INA PURINGS TRANSIENT HOUSE',
-                            'HEARTSVILLE TRANSIENT HOUSE' => 'HEARTSVILLE TRANSIENT HOUSE',
-                            'CLEOS TRANSIENT HOUSE' => 'CLEOS TRANSIENT HOUSE',
-                            'BCV TRANSIENT HOUSE' => 'BCV TRANSIENT HOUSE',
-                            'LOLA BEEZ TRANSIENT' => 'LOLA BEEZ TRANSIENT',
-                            'JRL TRANSIENT HOUSE' => 'JRL TRANSIENT HOUSE',
+                            'COSMIC FARM' => 'La Trinidad',
+                            'BAPTC GUESTEL' => 'La Trinidad',
+                            'HELP ENGLISH LANGUAGE PROGRAM' => 'La Trinidad',
+                            'HIGHLAND BLOSSOMS' => 'La Trinidad',
+                            'JS LODGE' => 'La Trinidad',
+                            'BALI BEATA LODGING HOME' => 'La Trinidad',
+                            'STRAWBERRY VALLEY HOTEL & RESTAURANT' => 'La Trinidad',
+                            'WANAY\'S ROCKY MOUNTAIN HOMESTAY' => 'La Trinidad',
+                            'BSU GLADIOLA CENTER' => 'La Trinidad',
+                            'GARDEN NEN INES' => 'La Trinidad',
+                            'TANAW PRESA' => 'La Trinidad',
+                            'NATURE TOWER HOTEL' => 'La Trinidad',
+                            'ADELLE\'S TRANSIENT' => 'La Trinidad',
+                            'KOMEDOR CAFÉ AND INN (CHERYL ANN A. CAJIGAN)' => 'Mankayan',
+                            'LAY-ODAN FARM (HECTOR D. DELA CRUZ)' => 'Mankayan',
+                            'MICHELLE P. MANGALLAY' => 'Mankayan',
+                            'PRECIOUS TWINS LODGE (REYNALDO D. PALOMO)' => 'Mankayan',
+                            'ST. JOHN EVANGELIST GUEST HOUSE' => 'Mankayan',
+                            'UPSIDE DOWN CAFÉ AND HOMESTAY' => 'Mankayan',
+                            'HI-ACRES CAMP' => 'Sablan',
+                            'LEAVES & PETALS ECO-GARDEN RESORT' => 'Sablan',
+                            'SABLAN HILLS' => 'Sablan',
+                            'LUSTREA TRANSIENT HOUSE' => 'Sablan',
+                            'RKK\'S TRANSIENT HOUSE' => 'Tuba',
+                            'EVER LODGE' => 'Tuba',
+                            'PALM GROVE HOTSPRING AND MOUNTAIN RESORT' => 'Tuba',
+                            'ASIN HOTSPRING POOTEN RESORT' => 'Tuba',
+                            'RIVERVIEW WATERPARK' => 'Tuba',
+                            'VALLEYPOINT CAMPSITE' => 'Tuba',
+                            'BEZ AND OH LODGING HOME' => 'Tuba',
+                            'BALAI TAKO (BY NOBLE NEST REALTY AND SERVICES)' => 'Tuba',
+                            'WINACA ECO-CULTURAL VILLAGE' => 'Tublay',
+                            'ANGLUBEN HOMESTAY' => 'Bakun',
+                            'FERNANDEZ HOMESTAY' => 'Bakun',
+                            'SAGUDAY BUILDING' => 'Bakun',
+                            'BAGAYAO HOMESTAY' => 'Bakun',
+                            'KINGS CABIN TRANSIENT HOUSE' => 'Itogon',
+                            'LAZY BEAR' => 'Itogon',
+                            'INA PURINGS TRANSIENT HOUSE' => 'Itogon',
+                            'HEARTSVILLE TRANSIENT HOUSE' => 'Itogon',
+                            'CLEOS TRANSIENT HOUSE' => 'Itogon',
+                            'BCV TRANSIENT HOUSE' => 'Itogon',
+                            'LOLA BEEZ TRANSIENT' => 'Itogon',
+                            'JRL TRANSIENT HOUSE' => 'Itogon',
                             'AMAPOLA CLIFF TRANSIENT HOUSE' => 'AMAPOLA CLIFF TRANSIENT HOUSE',
                             'BABAN BOY HOMESTAY' => 'BABAN BOY HOMESTAY',
                             'SUMMIT GEMS HOMESTAY' => 'SUMMIT GEMS HOMESTAY',
@@ -414,6 +423,19 @@ class AccommodationResource extends Resource
                         'NANAY HONORIA' => 'NANAY HONORIA',
                         'RAG HOMESTAY' => 'RAG HOMESTAY',
                     ])
+                    ->required(),
+
+                Select::make('type')
+                    ->label('Accommodation Type')
+                    ->options([
+                        'HTL' => 'HTL - Hotel',
+                        'RES' => 'RES - Resort',
+                        'TIN' => 'TIN - Tourist Inn',
+                        'APA' => 'APA - Apartel',
+                        'PEN' => 'PEN - Pension House',
+                        'HSS' => 'HSS - Homestay',
+                        'OTH' => 'OTH - Others',
+                    ])
                     ->searchable(),
 
                 Select::make('month')
@@ -483,21 +505,27 @@ class AccommodationResource extends Resource
                     ->label('How many Philippine resident/s?')
                     ->numeric()
                     ->default(0)
-                    ->live()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) use ($updateTotalNights) {
+                        if ((int) $state === 0) $set('gn_ph_count', 0);
+                        $updateTotalNights($set, $get);
+                    })
                     ->columnSpanFull(),
 
                 TextInput::make('ga_ph_province')
                     ->label('What province/s are they from?')
                     ->placeholder('e.g., Benguet, Cebu')
                     ->maxLength(255)
-                    ->visible(fn ($get) => (int) $get('ga_ph_count') > 0)
+                    ->visible(fn (callable $get) => (int) $get('ga_ph_count') > 0)
                     ->columnSpanFull(),
 
                 TextInput::make('gn_ph_count')
                     ->label('How many nights did they stay? (Philippine Residents)')
                     ->numeric()
                     ->default(0)
-                    ->visible(fn ($get) => (int) $get('ga_ph_count') > 0)
+                    ->visible(fn (callable $get) => (int) $get('ga_ph_count') > 0)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated($updateTotalNights)
                     ->columnSpanFull(),
 
                 // 2. Non-Philippine Residents
@@ -505,21 +533,27 @@ class AccommodationResource extends Resource
                     ->label('How many non-Philippine resident/s?')
                     ->numeric()
                     ->default(0)
-                    ->live()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) use ($updateTotalNights) {
+                        if ((int) $state === 0) $set('gn_non_fil_count', 0);
+                        $updateTotalNights($set, $get);
+                    })
                     ->columnSpanFull(),
 
                 TextInput::make('ga_non_fil_country')
                     ->label('Which country/countries are they from?')
                     ->placeholder('e.g., South Korea, Japan')
                     ->maxLength(255)
-                    ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0)
+                    ->visible(fn (callable $get) => (int) $get('ga_non_fil_count') > 0)
                     ->columnSpanFull(),
 
                 TextInput::make('gn_non_fil_count')
                     ->label('How many nights did they stay? (Non-Philippine Residents)')
                     ->numeric()
                     ->default(0)
-                    ->visible(fn ($get) => (int) $get('ga_non_fil_count') > 0)
+                    ->visible(fn (callable $get) => (int) $get('ga_non_fil_count') > 0)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated($updateTotalNights)
                     ->columnSpanFull(),
 
                 // 3. Unspecified
@@ -527,14 +561,20 @@ class AccommodationResource extends Resource
                     ->label('How many unspecified resident/s?')
                     ->numeric()
                     ->default(0)
-                    ->live()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) use ($updateTotalNights) {
+                        if ((int) $state === 0) $set('gn_unspecified', 0);
+                        $updateTotalNights($set, $get);
+                    })
                     ->columnSpanFull(),
 
                 TextInput::make('gn_unspecified')
                     ->label('How many nights did they stay? (Unspecified Residents)')
                     ->numeric()
                     ->default(0)
-                    ->visible(fn ($get) => (int) $get('ga_unspecified') > 0)
+                    ->visible(fn (callable $get) => (int) $get('ga_unspecified') > 0)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated($updateTotalNights)
                     ->columnSpanFull(),
 
                 // 4. Overseas Filipinos
@@ -542,15 +582,22 @@ class AccommodationResource extends Resource
                     ->label('How many overseas filipino/s?')
                     ->numeric()
                     ->default(0)
-                    ->live()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) use ($updateTotalNights) {
+                        if ((int) $state === 0) $set('gn_overseas_filipinos', 0);
+                        $updateTotalNights($set, $get);
+                    })
                     ->columnSpanFull(),
 
                 TextInput::make('gn_overseas_filipinos')
                     ->label('How many nights did they stay? (Overseas Filipinos)')
                     ->numeric()
                     ->default(0)
-                    ->visible(fn ($get) => (int) $get('ga_overseas_filipinos') > 0)
+                    ->visible(fn (callable $get) => (int) $get('ga_overseas_filipinos') > 0)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated($updateTotalNights)
                     ->columnSpanFull(),
+
 
                 // ==========================================
                 // BOTTOM TOTALS SECTION
@@ -568,6 +615,7 @@ class AccommodationResource extends Resource
                     ->label('Total No. Nights')
                     ->numeric()
                     ->default(0)
+                    ->readOnly() // Prevents manual editing so the calculation stays accurate
                     ->columnSpanFull(),
 
                 TextInput::make('rooms_occupied')
@@ -579,16 +627,12 @@ class AccommodationResource extends Resource
             ]);
     }
 
-    // ==========================================
-    // 3. THE CARD GRID LAYOUT
-    // ==========================================
     public static function table(Table $table): Table
     {
         return $table
-            // Dynamic Grid Configuration
             ->contentGrid(fn ($livewire) => (property_exists($livewire, 'isGrid') && $livewire->isGrid) 
-                ? ['md' => 2, 'xl' => 3] // Grid View: 2 or 3 columns depending on screen size
-                : ['default' => 1]       // List View: 1 column forces horizontal stacking without headers!
+                ? ['md' => 2, 'xl' => 3] 
+                : ['default' => 1]       
             )
             ->recordUrl(fn ($record) => Pages\ViewAccommodation::getUrl(['record' => $record]))
             ->columns([
@@ -598,22 +642,17 @@ class AccommodationResource extends Resource
                     ->html()
                     ->getStateUsing(function ($record, $livewire) {
                         
-                        // Check if we are in Grid mode or List mode
                         $isGrid = property_exists($livewire, 'isGrid') ? $livewire->isGrid : true;
 
-                        // Shared Calculations
                         $noOfRooms = (int)$record->no_of_rooms;
                         $occupied = (int)$record->rooms_occupied;
                         $occupancyRate = $noOfRooms > 0 ? round(($occupied / $noOfRooms) * 100) : 0;
-                        $occupancyRate = min($occupancyRate, 100); // Cap at 100%
+                        $occupancyRate = min($occupancyRate, 100); 
                         
                         $barColor = $occupancyRate >= 80 ? '#ef4444' : ($occupancyRate >= 50 ? '#f59e0b' : '#10b981');
                         $totalGuests = (int)$record->ga_ph_count + (int)$record->ga_non_fil_count + (int)$record->ga_unspecified + (int)$record->ga_overseas_filipinos;
 
                         if ($isGrid) {
-                            // ==========================================
-                            // 1. GRID VIEW (Vertical Card)
-                            // ==========================================
                             return new HtmlString('
                                 <div style="display: flex; flex-direction: column; gap: 1rem; cursor: pointer; height: 100%;">
                                     <div>
@@ -646,19 +685,12 @@ class AccommodationResource extends Resource
                                 </div>
                             ');
                         } else {
-                            // ==========================================
-                            // 2. LIST VIEW (Horizontal Card exactly like Figma)
-                            // ==========================================
                             return new HtmlString('
                                 <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; cursor: pointer;">
-                                    
-                                    <!-- Left: Info -->
                                     <div style="flex: 2; padding-right: 1rem;">
                                         <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0;">' . $record->name . '</h3>
                                         <p style="font-size: 0.875rem; color: #9ca3af; margin: 0; margin-top: 4px;">📍 ' . $record->municipality . ' • ' . ucfirst(strtolower($record->month)) . ' ' . $record->year . '</p>
                                     </div>
-                                    
-                                    <!-- Middle: Metrics -->
                                     <div style="display: flex; flex: 3; justify-content: space-around; align-items: center; border-left: 1px solid #3f3f46; border-right: 1px solid #3f3f46; padding: 0 1rem;">
                                         <div style="text-align: center;">
                                             <div style="font-weight: 700; color: #3b82f6; font-size: 1.125rem;">' . $noOfRooms . '</div>
@@ -673,14 +705,11 @@ class AccommodationResource extends Resource
                                             <div style="color: #a1a1aa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Arrivals</div>
                                         </div>
                                     </div>
-
-                                    <!-- Right: Occupancy Badge -->
                                     <div style="flex: 1; text-align: right; padding-left: 1rem;">
                                         <div style="display: inline-block; padding: 0.5rem 1rem; border: 1px solid ' . $barColor . '; border-radius: 9999px; background-color: rgba(24, 24, 27, 0.5);">
                                             <span style="color: ' . $barColor . '; font-weight: bold; font-size: 0.875rem;">' . $occupancyRate . '% Occupied</span>
                                         </div>
                                     </div>
-
                                 </div>
                             ');
                         }
