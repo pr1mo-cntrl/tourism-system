@@ -4,15 +4,27 @@ namespace App\Filament\Resources\Accommodations\Pages;
 
 use App\Filament\Resources\Accommodations\AccommodationResource;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Schemas\Schema; // CHANGED: Replaced Form with Schema
+use Filament\Schemas\Schema;
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\HtmlString;
+use Filament\Actions; // ADDED: Required for the top right buttons
 
 class ViewAccommodation extends ViewRecord
 {
     protected static string $resource = AccommodationResource::class;
 
-    // CHANGED: Use Schema here instead of Form to match your system
+    // ==========================================
+    // THIS ADDS THE 'EDIT' BUTTON AT THE TOP RIGHT
+    // ==========================================
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\EditAction::make()
+                ->color('primary')
+                ->icon('heroicon-m-pencil-square'),
+        ];
+    }
+
     public function form(Schema $schema): Schema
     {
         return $schema
