@@ -571,7 +571,7 @@ class AccommodationResource extends Resource
                     ->columnSpanFull() 
                     ->content(new HtmlString('
                         <div style="margin-top: 30px; margin-bottom: 10px; padding: 20px; background-color: #18181b; border: 1px solid #3f3f46; border-top: 4px solid #f59e0b; border-radius: 8px;">
-                            <h2 style="font-size: 1.25rem; font-weight: bold; color: #ffffff; margin-bottom: 0; margin-top: 0;">📈 TOTALS</h2>
+                            <h2 style="font-size: 1.25rem; font-weight: bold; color: #ffffff; margin-bottom: 0; margin-top: 0;">📈 TOTAL NO. ROOMS</h2>
                         </div>
                     ')),
 
