@@ -608,11 +608,6 @@ class AccommodationResource extends Resource
                         'Kapangan' => 'Kapangan', 'Kibungan' => 'Kibungan', 'La Trinidad' => 'La Trinidad', 
                         'Mankayan' => 'Mankayan', 'Sablan' => 'Sablan', 'Tuba' => 'Tuba', 'Tublay' => 'Tublay',
                     ]),
-            ])
-            ->actions([
-                \Filament\Tables\Actions\EditAction::make()
-                    ->label('View / Edit Data')
-                    ->icon('heroicon-m-eye'),
             ]);
     }
 
